@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kingwant.videoAnaly.mapper.VideoNumberAbnormalMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.kingwant.videoAnaly.entity.VideoNumberAbnormal">
+        <id column="ID" property="id" />
+        <result column="CODE" property="code" />
+        <result column="NAME" property="name" />
+        <result column="EX_DATE" property="exDate" />
+        <result column="IMAGE" property="image" jdbcType="BLOB" typeHandler="org.apache.ibatis.type.BlobTypeHandler"/>
+        <result column="LIMIT" property="limit" />
+        <result column="CURRENT_NUM" property="currentNum" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID AS id, CODE AS code, NAME AS name, EX_DATE AS exDate, IMAGE AS image, LIMIT AS limit, CURRENT_NUM AS currentNum
+    </sql>
+
+</mapper>
