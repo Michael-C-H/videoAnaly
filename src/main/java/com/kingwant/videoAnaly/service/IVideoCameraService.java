@@ -1,6 +1,10 @@
 package com.kingwant.videoAnaly.service;
 
 import com.kingwant.videoAnaly.entity.VideoCamera;
+
+import java.util.List;
+import java.util.Map;
+
 import com.baomidou.mybatisplus.service.IService;
 
 /**
@@ -12,5 +16,10 @@ import com.baomidou.mybatisplus.service.IService;
  * @since 2018-12-17
  */
 public interface IVideoCameraService extends IService<VideoCamera> {
-
+	//获取相机信息列表
+	List<VideoCamera> getVedioCameraList();
+	
+	
+	
+	
 }
