@@ -32,7 +32,7 @@ public class VideoDressAbnormal extends Model<VideoDressAbnormal> {
     @TableField("EX_DATE")
     private Date exDate;
     @TableField("IMAGE")
-    private Blob image;
+    private byte[] image;
     @TableField("REASON")
     private String reason;
 
@@ -69,11 +69,11 @@ public class VideoDressAbnormal extends Model<VideoDressAbnormal> {
         this.exDate = exDate;
     }
 
-    public Blob getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(Blob image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 
