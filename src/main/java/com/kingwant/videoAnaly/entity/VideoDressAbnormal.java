@@ -35,9 +35,20 @@ public class VideoDressAbnormal extends Model<VideoDressAbnormal> {
     private String reason;
     @TableField(exist = false)
     private String stringDate;
+    
+    @TableField(exist = false)
+    private String imgData;
 
 
-    public String getId() {
+    public String getImgData() {
+		return imgData;
+	}
+
+	public void setImgData(String imgData) {
+		this.imgData = imgData;
+	}
+
+	public String getId() {
         return id;
     }
 

@@ -8,6 +8,7 @@ import java.util.Date;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
@@ -38,6 +39,7 @@ import com.kingwant.videoAnaly.util.ComUtil;
 import com.kingwant.videoAnaly.util.KwHelper;
 
 import io.swagger.annotations.ApiOperation;
+import xyz.michaelch.mchtools.hepler.DateHelper;
 import xyz.michaelch.mchtools.hepler.RequestHelper;
 
 @Controller
@@ -50,14 +52,17 @@ public class IndexController {
 	@Resource
 	private IVideoNumberAbnormalService vns;
 	
-	@RequestMapping("/dressnewpage/detail")
+	@RequestMapping("/dress/detail")
     public String dressnewpage(String id,Model model){
     	
     	VideoDressAbnormal videoDressAbnormal = vas.selectById(id);
 		Date exDate = videoDressAbnormal.getExDate();
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String formatStr =formatter.format(exDate);
+		String formatStr =DateHelper.dateToString(exDate,"yyyy-MM-dd hh:mm:ss");
 		videoDressAbnormal.setStringDate(formatStr);
+		if(videoDressAbnormal.getImage()!=null){
+			videoDressAbnormal.setImgData(Base64.encodeBase64String(videoDressAbnormal.getImage()));
+			videoDressAbnormal.setImage(null);
+		}
     	model.addAttribute("videoDressAbnormal",videoDressAbnormal);
     	
         return "dressEx/detail";
@@ -67,9 +72,12 @@ public class IndexController {
 		
 		VideoNumberAbnormal videoNumberAbnormal = vns.selectById(id);
 		Date exDate = videoNumberAbnormal.getExDate();
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String formatStr =formatter.format(exDate);
+		String formatStr =DateHelper.dateToString(exDate,"yyyy-MM-dd hh:mm:ss");
 		videoNumberAbnormal.setStringDate(formatStr);
+		if(videoNumberAbnormal.getImage()!=null){
+			videoNumberAbnormal.setImgData(Base64.encodeBase64String(videoNumberAbnormal.getImage()));
+			videoNumberAbnormal.setImage(null);
+		}
 		model.addAttribute("videoNumberAbnormal",videoNumberAbnormal);
 		return "numberEx/detail";
 	}

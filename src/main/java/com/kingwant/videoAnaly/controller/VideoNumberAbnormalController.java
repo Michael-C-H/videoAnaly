@@ -85,21 +85,7 @@ public class VideoNumberAbnormalController {
         return new BootstrapPageResult<VideoNumberAbnormal>(list,page.getDraw());
     }
 	
-	@RequestMapping("/selectonenum")
-	@ResponseBody
-	public BootstrapPageResult<VideoNumberAbnormal> selectone(String id){
-		try{
-			VideoNumberAbnormal videoNumberAbnormal = vns.selectById(id);
-			Date exDate = videoNumberAbnormal.getExDate();
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			String formatStr =formatter.format(exDate);
-			videoNumberAbnormal.setStringDate(formatStr);
-			return new BootstrapPageResult<VideoNumberAbnormal>(videoNumberAbnormal,"成功", true);
-		}catch (Exception e) {
-			return new BootstrapPageResult<VideoNumberAbnormal>("后台查询系统错误", false);
-		}
-	}
-	
+
 	
     
     

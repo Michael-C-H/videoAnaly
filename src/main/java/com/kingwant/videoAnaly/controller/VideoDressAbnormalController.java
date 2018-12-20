@@ -12,6 +12,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
@@ -47,6 +48,7 @@ import com.kingwant.videoAnaly.util.KwHelper;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import io.swagger.annotations.ApiOperation;
+import xyz.michaelch.mchtools.hepler.DateHelper;
 import xyz.michaelch.mchtools.hepler.RequestHelper;
 
 @RestController
@@ -87,28 +89,5 @@ public class VideoDressAbnormalController {
     	
         return new BootstrapPageResult<VideoDressAbnormal>(list,page.getDraw());
     }
-	
-	@RequestMapping("/selectonedress")
-	@ResponseBody
-	public BootstrapPageResult<VideoDressAbnormal> selectone(String id){
-		try{
-			VideoDressAbnormal videoDressAbnormal = vds.selectById(id);
-			Date exDate = videoDressAbnormal.getExDate();
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			String formatStr =formatter.format(exDate);
-			videoDressAbnormal.setStringDate(formatStr);
-			return new BootstrapPageResult<VideoDressAbnormal>(videoDressAbnormal,"成功", true);
-		}catch (Exception e) {
-			return new BootstrapPageResult<VideoDressAbnormal>("后台查询系统错误", false);
-		}
-	}
-	
-	
-	
-	
-	
-    
-    
-    
     
 }

@@ -14,7 +14,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID AS id, CODE AS code, NAME AS name, EX_DATE AS exDate, REASON AS reason
+        ID AS id, CODE AS code, NAME AS name, EX_DATE AS exDate, REASON AS reason, IMAGE AS image
     </sql>
 
 </mapper>

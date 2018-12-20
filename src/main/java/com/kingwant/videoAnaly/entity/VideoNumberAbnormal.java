@@ -37,6 +37,8 @@ public class VideoNumberAbnormal extends Model<VideoNumberAbnormal> {
     private String currentNum;
     @TableField(exist = false)
     private String stringDate;
+    @TableField(exist = false)
+    private String imgData;
 
     public String getId() {
         return id;
@@ -47,6 +49,14 @@ public class VideoNumberAbnormal extends Model<VideoNumberAbnormal> {
     }
     
    
+
+	public String getImgData() {
+		return imgData;
+	}
+
+	public void setImgData(String imgData) {
+		this.imgData = imgData;
+	}
 
 	public String getStringDate() {
 		return stringDate;

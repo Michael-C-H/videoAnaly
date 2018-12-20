@@ -102,7 +102,7 @@ function initDt(){
 	
 }
 function newpage(id,name){
-	window.open("/dressnewpage/detail?id="+id) 
+	window.open("/dress/detail?id="+id) 
 }
 function check(id,name){
 	 $("#myModal").modal().on(
