@@ -18,6 +18,10 @@ public class BootstrapPageResult<T> {
 		 * 列表数据
 		 */
 		private List<T> data;
+		/**
+		 * 单个数据
+		 */
+		private T singledata;
 		
 		/**
 		 * 消息提示
@@ -29,12 +33,27 @@ public class BootstrapPageResult<T> {
 		 * 出错时给出异常信息
 		 * @param msg
 		 */
-		public BootstrapPageResult(String msg) {
+		public BootstrapPageResult(String msg,Boolean rs) {
 			// TODO Auto-generated constructor stub
 			this.msg=msg;
-			this.rs=false;
+			this.rs = rs;
 		}
 		
+		
+		
+
+
+		public BootstrapPageResult(T singledata, String msg, Boolean rs) {
+			super();
+			this.singledata = singledata;
+			this.msg = msg;
+			this.rs = rs;
+		}
+
+
+
+
+
 		/**
 		 * 成功返回
 		 * @param list page对象
@@ -83,6 +102,14 @@ public class BootstrapPageResult<T> {
 
 		public Boolean getRs() {
 			return rs;
+		}
+		
+		public T getSingledata() {
+			return singledata;
+		}
+
+		public void setSingledata(T singledata) {
+			this.singledata = singledata;
 		}
 
 		public void setRs(Boolean rs) {

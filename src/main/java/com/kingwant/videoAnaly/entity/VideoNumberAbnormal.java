@@ -37,7 +37,8 @@ public class VideoNumberAbnormal extends Model<VideoNumberAbnormal> {
     private String limit;
     @TableField("CURRENT_NUM")
     private String currentNum;
-
+    @TableField(exist = false)
+    private String stringDate;
 
     public String getId() {
         return id;
@@ -46,11 +47,21 @@ public class VideoNumberAbnormal extends Model<VideoNumberAbnormal> {
     public void setId(String id) {
         this.id = id;
     }
+    
+   
 
-    public String getCode() {
+	public String getStringDate() {
+		return stringDate;
+	}
+
+	public void setStringDate(String stringDate) {
+		this.stringDate = stringDate;
+	}
+
+	public String getCode() {
         return code;
     }
-
+	
     public void setCode(String code) {
         this.code = code;
     }
@@ -62,7 +73,7 @@ public class VideoNumberAbnormal extends Model<VideoNumberAbnormal> {
     public void setName(String name) {
         this.name = name;
     }
-
+    
     public Date getExDate() {
         return exDate;
     }
