@@ -35,6 +35,8 @@ public class VideoDressAbnormal extends Model<VideoDressAbnormal> {
     private Blob image;
     @TableField("REASON")
     private String reason;
+    @TableField(exist = false)
+    private String stringDate;
 
 
     public String getId() {
@@ -44,8 +46,18 @@ public class VideoDressAbnormal extends Model<VideoDressAbnormal> {
     public void setId(String id) {
         this.id = id;
     }
+    
+   
 
-    public String getCode() {
+	public String getStringDate() {
+		return stringDate;
+	}
+
+	public void setStringDate(String stringDate) {
+		this.stringDate = stringDate;
+	}
+
+	public String getCode() {
         return code;
     }
 

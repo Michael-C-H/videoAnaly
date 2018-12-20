@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface IVideoDressAbnormalService extends IService<VideoDressAbnormal> {
 
+
 }

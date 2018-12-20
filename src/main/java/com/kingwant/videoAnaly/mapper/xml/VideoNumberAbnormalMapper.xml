@@ -15,7 +15,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID AS id, CODE AS code, NAME AS name, EX_DATE AS exDate, IMAGE AS image, LIMIT AS limit, CURRENT_NUM AS currentNum
+        ID AS id, CODE AS code, NAME AS name, EX_DATE AS exDate, LIMIT AS limit, CURRENT_NUM AS currentNum
     </sql>
 
 </mapper>

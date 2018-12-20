@@ -58,9 +58,9 @@
               <div class="menu_section">
                 <h3>管理菜单</h3>
                 <ul class="nav side-menu">
-                  <li class="active"><a href="#"><i class="fa fa-camera"></i>摄像头管理</a> </li>
-                  <li><a href="#"><i class="fa fa-user"></i>着装异常信息</a> </li>
-                  <li><a href="#"><i class="fa fa-users"></i>人数异常信息</a> </li>
+                  <li class="active"><a href="/camera/list"><i class="fa fa-camera"></i>摄像头管理</a> </li>
+                  <li ><a href="/dressEx/list"><i class="fa fa-user"></i>着装异常信息</a> </li>
+                  <li ><a href="/numberEx/list"><i class="fa fa-users"></i>人数异常信息</a> </li>
                  
                 </ul>
               </div>          
@@ -165,6 +165,87 @@
         <!-- /footer content -->
       </div>
     </div>
+    
+	<form class="form-horizontal" role="form" id="modifyForm" action="/updateorinsertvc" method="post" enctype="application/x-www-form-urlencoded"	>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h4 class="modal-title" id="myModalLabel">
+					编辑
+				</h4>
+			</div>
+			<div class="modal-body">
+	 
+		<div class="form-group">
+		<div class="col-sm-10">
+			<input type="hidden" class="form-control" id="formid" name="formid"  value=""
+				   >
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="firstname" class="col-sm-2 control-label">编号</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control" id="CODE" name="CODE"  value=""
+				   placeholder="请输入">
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="lastname" class="col-sm-2 control-label">名称</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control" id="NAME" name="NAME" value=""
+				   placeholder="请输入">
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="lastname" class="col-sm-2 control-label">数据源</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control" id="SOURCE"  name="SOURCE" value="" 
+				   placeholder="请输入">
+		</div>
+	</div>
+	<div class="form-group">
+	<label for="lastname" class="col-sm-2 control-label">分析类型</label>
+	<label class="checkbox-inline">
+		<input type="checkbox" id="dress" value="A" name="dress" > 着装
+	</label>
+	<label class="checkbox-inline">
+		<input type="checkbox" id="ONLINE" value="B" name="ONLINE" onclick="clickonline(this)"> 可见范围人数
+	</label>
+	<label class="checkbox-inline">
+		<input type="checkbox" id="NUM" value="C" name="NUM" onclick="clickonlinenum(this)"> 总人数
+	</label>
+</div>
+	<div class="form-group">
+		<label for="lastname" class="col-sm-2 control-label" >可见范围阈值</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control" id="ONLINE_NUM"  name="ONLINE_NUM"
+				   placeholder="请输入" >
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="lastname" class="col-sm-2 control-label">总人数阈值</label>
+		<div class="col-sm-10">
+			<input type="text" class="form-control" id="TOTAL"  name="TOTAL"
+				   placeholder="请输入">
+		</div>
+	</div>
+ <!--  -->
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default"  id="backButton" data-dismiss="modal">关闭
+				</button>
+				<button type="submit" id="submitButton" class="btn btn-primary">
+					提交更改
+				</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+	</form>
+</div>
 
     <!-- jQuery -->
     <script src="/vendors/jquery/dist/jquery.min.js"></script>

@@ -38,8 +38,20 @@ public class IndexController {
 	private IVideoCameraService vcm;
 
     @RequestMapping("/")
-    public String hello(){
+    public String root(){
         return "camera/list";
+    }
+    @RequestMapping("/camera/list")
+    public String camera(){
+    	return "camera/list";
+    }
+    @RequestMapping("/dressEx/list")
+    public String dress(){
+    	return "dressEx/list";
+    } 
+    @RequestMapping("/numberEx/list")
+    public String num(){
+    	return "numberEx/list";
     }
     
     
