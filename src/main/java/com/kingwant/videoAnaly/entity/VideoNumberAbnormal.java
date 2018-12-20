@@ -4,11 +4,9 @@ import java.io.Serializable;
 
 import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableId;
-import java.sql.Blob;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
-import java.io.Serializable;
 
 /**
  * <p>
@@ -32,7 +30,7 @@ public class VideoNumberAbnormal extends Model<VideoNumberAbnormal> {
     @TableField("EX_DATE")
     private Date exDate;
     @TableField("IMAGE")
-    private Blob image;
+    private byte[] image;
     @TableField("LIMIT")
     private String limit;
     @TableField("CURRENT_NUM")
@@ -82,11 +80,11 @@ public class VideoNumberAbnormal extends Model<VideoNumberAbnormal> {
         this.exDate = exDate;
     }
 
-    public Blob getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(Blob image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 

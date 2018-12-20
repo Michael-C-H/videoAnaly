@@ -8,7 +8,7 @@
         <result column="CODE" property="code" />
         <result column="NAME" property="name" />
         <result column="EX_DATE" property="exDate" />
-        <result column="IMAGE" property="image" jdbcType="BLOB" typeHandler="org.apache.ibatis.type.BlobTypeHandler"/>
+        <result column="IMAGE" property="image" />
         <result column="LIMIT" property="limit" />
         <result column="CURRENT_NUM" property="currentNum" />
     </resultMap>
