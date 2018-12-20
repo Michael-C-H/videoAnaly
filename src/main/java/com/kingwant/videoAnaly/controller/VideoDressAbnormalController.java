@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -53,7 +54,8 @@ public class VideoDressAbnormalController {
 	
 	@Resource
 	private IVideoDressAbnormalService vds;
-
+	
+	
 	@RequestMapping("/dresslist")
     @ResponseBody
     public BootstrapPageResult<VideoDressAbnormal> test(HttpServletRequest request,BootstrapPageEntity<VideoDressAbnormal> page){
@@ -68,8 +70,9 @@ public class VideoDressAbnormalController {
     	//搜索
     	String search=RequestHelper.toStr(request, "search[value]",null);
     	Wrapper<VideoDressAbnormal> wrapper=new EntityWrapper<VideoDressAbnormal>();
+    	wrapper.setSqlSelect(" ID AS id, CODE AS code, NAME AS name, EX_DATE AS exDate, REASON AS reason");
+    	wrapper.orderBy("EX_DATE", false);
     	if (!KwHelper.isNullOrEmpty(search)) {	
-    		wrapper.setSqlSelect(" ID AS id, CODE AS code, NAME AS name, EX_DATE AS exDate, REASON AS reason");
     		wrapper.like("name", search).or().like("code", search);
 		}
     	
@@ -87,18 +90,21 @@ public class VideoDressAbnormalController {
 	
 	@RequestMapping("/selectonedress")
 	@ResponseBody
-	public VideoDressAbnormal selectone(String id){
+	public BootstrapPageResult<VideoDressAbnormal> selectone(String id){
 		try{
 			VideoDressAbnormal videoDressAbnormal = vds.selectById(id);
 			Date exDate = videoDressAbnormal.getExDate();
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String formatStr =formatter.format(exDate);
 			videoDressAbnormal.setStringDate(formatStr);
-			return videoDressAbnormal;
+			return new BootstrapPageResult<VideoDressAbnormal>(videoDressAbnormal,"成功", true);
 		}catch (Exception e) {
-			return null;
+			return new BootstrapPageResult<VideoDressAbnormal>("后台查询系统错误", false);
 		}
 	}
+	
+	
+	
 	
 	
     

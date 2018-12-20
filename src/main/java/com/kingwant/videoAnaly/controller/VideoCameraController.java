@@ -160,12 +160,12 @@ public class VideoCameraController {
 	}
 	@RequestMapping("/selectone")
 	@ResponseBody
-	public VideoCamera selectone(String id){
+	public BootstrapPageResult<VideoCamera> selectone(String id){
 		try{
 			VideoCamera videoCamera = vcm.selectById(id);
-			return videoCamera;
+			return new BootstrapPageResult<VideoCamera>(videoCamera,"成功", true);
 		}catch (Exception e) {
-			return null;
+			return new BootstrapPageResult<VideoCamera>("后台查询系统错误", false);
 		}
 	}
     

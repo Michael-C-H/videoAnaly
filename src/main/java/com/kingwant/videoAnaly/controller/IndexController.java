@@ -2,6 +2,9 @@ package com.kingwant.videoAnaly.controller;
 
 
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -9,6 +12,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,8 +30,10 @@ import com.kingwant.videoAnaly.entity.BootstrapPageEntity;
 import com.kingwant.videoAnaly.entity.BootstrapPageResult;
 import com.kingwant.videoAnaly.entity.VideoCamera;
 import com.kingwant.videoAnaly.entity.VideoDressAbnormal;
+import com.kingwant.videoAnaly.entity.VideoNumberAbnormal;
 import com.kingwant.videoAnaly.service.IVideoCameraService;
 import com.kingwant.videoAnaly.service.IVideoDressAbnormalService;
+import com.kingwant.videoAnaly.service.IVideoNumberAbnormalService;
 import com.kingwant.videoAnaly.util.ComUtil;
 import com.kingwant.videoAnaly.util.KwHelper;
 
@@ -41,16 +47,34 @@ public class IndexController {
 	private IVideoCameraService vcm;
 	@Resource
 	private IVideoDressAbnormalService vas;
-
-    @RequestMapping("/dressnewpage/list")
-    public ModelAndView dressnewpage(String id){
-    	ModelAndView mav = new ModelAndView();
-    	VideoDressAbnormal videoDressAbnormal = vas.selectById(id);
+	@Resource
+	private IVideoNumberAbnormalService vns;
+	
+	@RequestMapping("/dressnewpage/detail")
+    public String dressnewpage(String id,Model model){
     	
-    	mav.addObject("videoDressAbnormal",videoDressAbnormal);
-    	mav.setViewName("dressEx/detail");
-        return mav;
+    	VideoDressAbnormal videoDressAbnormal = vas.selectById(id);
+		Date exDate = videoDressAbnormal.getExDate();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String formatStr =formatter.format(exDate);
+		videoDressAbnormal.setStringDate(formatStr);
+    	model.addAttribute("videoDressAbnormal",videoDressAbnormal);
+    	
+        return "dressEx/detail";
     }
+	@RequestMapping("/numberEx/detail")
+	public String numnewpage(String id,Model model){
+		
+		VideoNumberAbnormal videoNumberAbnormal = vns.selectById(id);
+		Date exDate = videoNumberAbnormal.getExDate();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String formatStr =formatter.format(exDate);
+		videoNumberAbnormal.setStringDate(formatStr);
+		model.addAttribute("videoNumberAbnormal",videoNumberAbnormal);
+		return "numberEx/detail";
+	}
+
+    
     @RequestMapping("/")
     public String root(){
     	return "camera/list";

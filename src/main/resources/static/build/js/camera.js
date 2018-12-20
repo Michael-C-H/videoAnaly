@@ -136,22 +136,22 @@ $("#modifyForm").submit(function(e){
 	$.ajax({
         url:$("#modifyForm").attr("action"),
         data:$('#modifyForm').serialize(),
+        async:false,
         type:"post",
         success:function(data){
-        	if(data){
-        		alert("操作成功");
+        	if(data.rs){
         		//成功之后刷新table
         		myDataTable.ajax.reload();
         		$("#myModal").modal("hide");
         		
         	}
         	else{
-        		alert("操作失败");
+        		$.showErr("编辑失败"+data.msg);
         	}
         	$("#submitButton").removeAttr("disabled");
         },
         error:function(data){
-        	//alert("操作异常：" + $("#id").val() + data.responseText);
+        	$.showErr("编辑失败"+data.msg);
         	$("#submitButton").removeAttr("disabled");
         }
     });
@@ -163,47 +163,59 @@ function clickonline(checkbox){
 		
 	}
 }
-
-
 function del(id,name){
-	//处理业务
-	console.log(id);
-    $.ajax(
-            {
-                url: "/deletevc",
-                data:{"id":id},
-                type: "post",
-                beforeSend:function()
+	BootstrapDialog.confirm({
+        title : '确认',
+        message : '是否删除？',
+        type : BootstrapDialog.TYPE_WARNING, // <-- Default value is
+        // BootstrapDialog.TYPE_PRIMARY
+        closable : true, // <-- Default value is false，点击对话框以外的页面内容可关闭
+        draggable : true, // <-- Default value is false，可拖拽
+        btnCancelLabel : '取消', // <-- Default value is 'Cancel',
+        btnOKLabel : '确定', // <-- Default value is 'OK',
+        btnOKClass : 'btn-warning', // <-- If you didn't specify it, dialog type
+        size : BootstrapDialog.SIZE_SMALL,
+        // 对话框关闭的时候执行方法
+       // onhide : funcclose,
+        callback : function(result) {
+            // 点击确定按钮时，result为true
+            if (result) {
+            	$.ajax(
                 {
-                    return true;
-                },
-                success:function(data)
-                {
-                    if(data)
+                    url: "/deletevc",
+                    data:{"id":id},
+                    async:false,
+                    type: "post",
+                    
+                    success:function(data)
                     {
-                        alert('操作成功');
-                        //成功之后刷新table
-                    	myDataTable.ajax.reload();
-                    	$("#myModal").modal("hide");
-                    }
-                    else
+                        if(data.rs)
+                        {
+                            //alert('操作成功');
+                            $.showSuccess("删除成功",myDataTable.ajax.reload());
+                            //成功之后刷新table
+                        	//myDataTable.ajax.reload();
+                        	//$("#myModal").modal("hide");
+                        }
+                        else
+                        {
+                        	$.showErr("删除失败"+data.msg);
+                        }
+                    },
+                    error:function()
                     {
-                        alert('操作失败');
+                    	$.showErr("删除失败"+data.msg);
                     }
-                },
-                error:function()
-                {
-                    alert('请求出错');
-                },
-                complete:function()
-                {
-                    // $('#tips').hide();
-                }
-            });
+                    
+                });
 
-    return false;
+            }
+        }
+    });
+   
 	
 }
+
 
 function edit(id,name){
 	isAdd=false;
@@ -218,6 +230,7 @@ function edit(id,name){
              {
                  url: "/selectone",
                  data:{"id":id},
+                 async:false,
                  type: "post",
                  beforeSend:function()
                  {
@@ -226,17 +239,17 @@ function edit(id,name){
                  },
                  success:function(data)
                  {
-                     if(data)
+                     if(data.rs)
                      {
                     	 
                          // 解析json数据
                          var data = data;
                          // 赋值
-                         $("#formid").val(data.id);
-                         $("#CODE").val(data.code);
-                         $("#NAME").val(data.name);
-                         $("#SOURCE").val(data.source);
-                         var analy = data.anltsisType;
+                         $("#formid").val(data.singledata.id);
+                         $("#CODE").val(data.singledata.code);
+                         $("#NAME").val(data.singledata.name);
+                         $("#SOURCE").val(data.singledata.source);
+                         var analy = data.singledata.anltsisType;
                          $("#dress").prop("checked", false);
                          $("#ONLINE").prop("checked", false);
                          $("#NUM").prop("checked", false);
@@ -251,8 +264,8 @@ function edit(id,name){
                             	 $("#NUM").prop("checked", true); 
                              }
                          }
-                         $("#ONLINE_NUM").val(data.onlineNum);
-                         $("#TOTAL").val(data.total);
+                         $("#ONLINE_NUM").val(data.singledata.onlineNum);
+                         $("#TOTAL").val(data.singledata.total);
 
                          // 将input元素设置为readonly
                         // $('#user_id').attr("readonly","readonly")
@@ -261,12 +274,12 @@ function edit(id,name){
                      else
                      {
                         //$("#tip").html("<span style='color:red'>失败，请重试</span>");
-                        alert('操作失败');
+                    	 $.showErr("编辑失败"+data.msg);
                      }
                  },
                  error:function()
                  {
-                     alert('请求出错');
+                	 $.showErr("编辑失败"+msg);
                  },
                  complete:function()
                  {

@@ -102,7 +102,7 @@ function initDt(){
 	
 }
 function newpage(id,name){
-	window.open("/dressnewpage/list?id="+id) 
+	window.open("/dressnewpage/detail?id="+id) 
 }
 function check(id,name){
 	 $("#myModal").modal().on(
@@ -142,12 +142,12 @@ function check(id,name){
                      else
                      {
                         //$("#tip").html("<span style='color:red'>失败，请重试</span>");
-                        alert('操作失败');
+                    	 $.showErr("查看失败");
                      }
                  },
                  error:function()
                  {
-                     alert('请求出错');
+                	 $.showErr("查看失败");
                  },
                  complete:function()
                  {

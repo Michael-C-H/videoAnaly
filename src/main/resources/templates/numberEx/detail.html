@@ -82,37 +82,47 @@
         <!-- /top navigation -->
 
         <!-- page content -->
-        <div class="list-group">
+       <div class="list-group"> 
     <a href="#" class="list-group-item xx-item-ma ">
     <span class="list-group-item-text">
-            编号:
+            编号
         </span>
-        <span class="list-group-item-heading" id="code" th:text="${videoDressAbnormal.code}">
+        <span class="list-group-item-heading" id="code" th:text="${videoNumberAbnormal.code}">
+            	
         </span>
     </a>
     <a href="#" class="list-group-item xx-item-ma " >
     <span class="list-group-item-text">
-            名称:
+            名称
         </span>
-        <span class="list-group-item-heading" id="name" th:text="${videoDressAbnormal.name}">
+        <span class="list-group-item-heading" id="name" th:text="${videoNumberAbnormal.name}">
+            	
         </span>
     </a>
     <a href="#" class="list-group-item xx-item-ma " >
     <span class="list-group-item-text">
-           时间:
+           时间
         </span>
-        <span class="list-group-item-heading" id="exDate" th:text="${videoDressAbnormal.stringDate}">
+        <span class="list-group-item-heading" id="exDate" th:text="${videoNumberAbnormal.stringDate}">
+            
         </span>
     </a>
     <a href="#" class="list-group-item xx-item-ma ">
     <span class="list-group-item-text">
-            违规原因:
+            人数阈值
         </span>
-        <span class="list-group-item-heading"  id="reason" th:text="${videoDressAbnormal.reason}">
+        <span class="list-group-item-heading" id="limit" th:text="${videoNumberAbnormal.limit}">
+            
         </span>
     </a>
-    
-    
+    <a href="#" class="list-group-item xx-item-ma ">
+    <span class="list-group-item-text">
+            实际人数
+        </span>
+        <span class="list-group-item-heading" id="currentNum" th:text="${videoNumberAbnormal.currentNum}">
+            
+        </span>
+    </a>
 </div>
         <!-- /page content -->
 

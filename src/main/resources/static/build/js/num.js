@@ -91,19 +91,18 @@ function initDt(){
 				        //   指定第最后一列
 				        targets: -1,
 				        render: function(data, type, row) {
-                            var html ='<button class="btn btn-xs jfedit btn-info" onclick="checknum(\''+row.id+'\')">查看</button>&nbsp;&nbsp;';
+                            var html ='<button class="btn btn-xs jfedit btn-info" onclick="newpage(\''+row.id+'\')">查看</button>&nbsp;&nbsp;';
                             return html;
                         }
 
 				    }]
-				   
-			
 			}
-
 	);	
 	
 }
-
+function newpage(id,name){
+	window.open("/numberEx/detail?id="+id) 
+}
 function checknum(id,name){
 	 $("#myModal").modal().on(
              "shown.bs.modal",
@@ -142,13 +141,12 @@ function checknum(id,name){
                      }
                      else
                      {
-                        //$("#tip").html("<span style='color:red'>失败，请重试</span>");
-                        alert('操作失败');
+                    	 $.showErr("查看失败");
                      }
                  },
                  error:function()
                  {
-                     alert('请求出错');
+                	 $.showErr("查看失败");
                  },
                  complete:function()
                  {
