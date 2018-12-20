@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -24,7 +25,9 @@ import com.kingwant.videoAnaly.base.PublicResultConstant;
 import com.kingwant.videoAnaly.entity.BootstrapPageEntity;
 import com.kingwant.videoAnaly.entity.BootstrapPageResult;
 import com.kingwant.videoAnaly.entity.VideoCamera;
+import com.kingwant.videoAnaly.entity.VideoDressAbnormal;
 import com.kingwant.videoAnaly.service.IVideoCameraService;
+import com.kingwant.videoAnaly.service.IVideoDressAbnormalService;
 import com.kingwant.videoAnaly.util.ComUtil;
 import com.kingwant.videoAnaly.util.KwHelper;
 
@@ -36,10 +39,21 @@ public class IndexController {
 	
 	@Resource
 	private IVideoCameraService vcm;
+	@Resource
+	private IVideoDressAbnormalService vas;
 
+    @RequestMapping("/dressnewpage/list")
+    public ModelAndView dressnewpage(String id){
+    	ModelAndView mav = new ModelAndView();
+    	VideoDressAbnormal videoDressAbnormal = vas.selectById(id);
+    	
+    	mav.addObject("videoDressAbnormal",videoDressAbnormal);
+    	mav.setViewName("dressEx/detail");
+        return mav;
+    }
     @RequestMapping("/")
     public String root(){
-        return "camera/list";
+    	return "camera/list";
     }
     @RequestMapping("/camera/list")
     public String camera(){

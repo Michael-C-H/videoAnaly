@@ -90,6 +90,10 @@ public class VideoDressAbnormalController {
 	public VideoDressAbnormal selectone(String id){
 		try{
 			VideoDressAbnormal videoDressAbnormal = vds.selectById(id);
+			Date exDate = videoDressAbnormal.getExDate();
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String formatStr =formatter.format(exDate);
+			videoDressAbnormal.setStringDate(formatStr);
 			return videoDressAbnormal;
 		}catch (Exception e) {
 			return null;

@@ -89,7 +89,7 @@ function initDt(){
 				        //   指定第最后一列
 				        targets: -1,
 				        render: function(data, type, row) {
-                            var html ='<button class="btn btn-xs jfedit btn-info" onclick="check(\''+row.id+'\')">查看</button>&nbsp;&nbsp;';
+                            var html ='<button class="btn btn-xs jfedit btn-info" onclick="newpage(\''+row.id+'\')">查看</button>&nbsp;&nbsp;';
                             return html;
                         }
 
@@ -101,7 +101,9 @@ function initDt(){
 	);	
 	
 }
-
+function newpage(id,name){
+	window.open("/dressnewpage/list?id="+id) 
+}
 function check(id,name){
 	 $("#myModal").modal().on(
              "shown.bs.modal",
