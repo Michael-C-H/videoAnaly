@@ -131,10 +131,38 @@ function add(){
     });
 }
 //表单提交
-$("#modifyForm").submit(function(e){
-	$("#submitButton").attr('disabled',"true");
+function submitform(){
+	
+	if($("#CODE").val()==''){
+		$.showErr("编码不能为空");
+		return false;
+	}else if($("#NAME").val()==''){
+		$.showErr("名称不能为空");
+		return false;
+	}else if($("#SOURCE").val()==''){
+		$.showErr("数据源不能为空");
+		return false;
+	}else if($("#ONLINE").is(':checked')){
+		if($("#ONLINE_NUM").val()==''){
+			$.showErr("勾选可见范围人数时,可见范围阀值必填");
+			return false;
+		}
+		ajaxsubmit();
+	}else if($("#NUM").is(':checked')){
+		if($("#TOTAL").val()==''){
+			$.showErr("勾选总人数时,总人数阀值必填");
+			return false;
+		}
+		ajaxsubmit();
+	}else{
+		ajaxsubmit();
+	}
+	
+}
+
+function ajaxsubmit(){
 	$.ajax({
-        url:$("#modifyForm").attr("action"),
+        url:"/updateorinsertvc",
         data:$('#modifyForm').serialize(),
         async:false,
         type:"post",
@@ -148,20 +176,11 @@ $("#modifyForm").submit(function(e){
         	else{
         		$.showErr("编辑失败"+data.msg);
         	}
-        	$("#submitButton").removeAttr("disabled");
         },
         error:function(data){
         	$.showErr("编辑失败"+data.msg);
-        	$("#submitButton").removeAttr("disabled");
         }
     });
-    return false;
-});
-
-function clickonline(checkbox){
-	if (checkbox.checked == true){
-		
-	}
 }
 function del(id,name){
 	BootstrapDialog.confirm({

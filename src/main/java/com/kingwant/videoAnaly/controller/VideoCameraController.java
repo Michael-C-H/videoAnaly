@@ -83,6 +83,15 @@ public class VideoCameraController {
 		String ONLINE_NUM = request.getParameter("ONLINE_NUM");
 		String TOTAL = request.getParameter("TOTAL");
 		StringBuilder sb = new StringBuilder();
+		if(ComUtil.isEmpty(CODE)){
+			return new BootstrapPageResult<String>("编号为空",false);
+		}
+		if(ComUtil.isEmpty(NAME)){
+			return new BootstrapPageResult<String>("名称为空",false);
+		}
+		if(ComUtil.isEmpty(SOURCE)){
+			return new BootstrapPageResult<String>("数据源地址为空",false);
+		}
 		//分析拼接类型数据ABC
 		if(ComUtil.isEmpty(dress)&&ComUtil.isEmpty(ONLINE)&&ComUtil.isEmpty(NUM)){
 			sb = null;
@@ -91,9 +100,15 @@ public class VideoCameraController {
 				sb =sb.append("A,");
 			}
 			if(!ComUtil.isEmpty(ONLINE)){
+				if(ComUtil.isEmpty(ONLINE_NUM)){
+					return new BootstrapPageResult<String>("可见范围阀值为空",false);
+				}
 				sb =sb.append("B,");
 			}
 			if(!ComUtil.isEmpty(NUM)){
+				if(ComUtil.isEmpty(TOTAL)){
+					return new BootstrapPageResult<String>("总人数阀值为空",false);
+				}
 				sb = sb.append("C,");
 			}
 			sb = sb.deleteCharAt(sb.length()-1);
@@ -118,7 +133,7 @@ public class VideoCameraController {
 				boolean flag = vcm.insert(videoCamera);
 				return new BootstrapPageResult<String>("新增成功",true);
 			}catch (Exception e) {
-				return new BootstrapPageResult<String>("新增失败",false);
+				return new BootstrapPageResult<String>("新增失败"+e.getMessage(),false);
 			}
 		}else{
 			VideoCamera videoCamera = vcm.selectById(id);
@@ -139,7 +154,7 @@ public class VideoCameraController {
 				vcm.updateById(videoCamera);
 				return new BootstrapPageResult<String>("修改成功",true);
 			}catch (Exception e) {
-				return new BootstrapPageResult<String>("修改失败",false);
+				return new BootstrapPageResult<String>("修改失败"+e.getMessage(),false);
 			}
 			
 		}
@@ -163,7 +178,7 @@ public class VideoCameraController {
 	public BootstrapPageResult<VideoCamera> selectone(String id){
 		try{
 			VideoCamera videoCamera = vcm.selectById(id);
-			return new BootstrapPageResult<VideoCamera>(videoCamera,"成功", true);
+			return new BootstrapPageResult<VideoCamera>(true,"成功", videoCamera);
 		}catch (Exception e) {
 			return new BootstrapPageResult<VideoCamera>("后台查询系统错误", false);
 		}

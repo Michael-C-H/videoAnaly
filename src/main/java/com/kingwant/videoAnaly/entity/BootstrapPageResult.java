@@ -43,7 +43,7 @@ public class BootstrapPageResult<T> {
 		
 
 
-		public BootstrapPageResult(T singledata, String msg, Boolean rs) {
+		public BootstrapPageResult(Boolean rs, String msg,T singledata) {
 			super();
 			this.singledata = singledata;
 			this.msg = msg;

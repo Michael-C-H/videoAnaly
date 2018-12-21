@@ -167,7 +167,7 @@
     </div>
     
     
-	<form class="form-horizontal" role="form" id="modifyForm" action="/updateorinsertvc" method="post" enctype="application/x-www-form-urlencoded"	>
+	<form class="form-horizontal form-label-left" novalidate="" role="form" id="modifyForm" method="post" enctype="application/x-www-form-urlencoded">
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -187,29 +187,32 @@
 				   >
 		</div>
 	</div>
-	<div class="form-group">
-		<label for="firstname" class="col-sm-2 control-label">编号</label>
-		<div class="col-sm-10">
-			<input type="text" class="form-control" id="CODE" name="CODE"  value=""
-				   placeholder="请输入">
-		</div>
+	<div class="item form-group">
+	  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">编号<span class="required"></span>
+	  </label>
+	  <div class="col-md-6 col-sm-6 col-xs-12">
+	    <input type="text" id="CODE" name="CODE" required="required" class="form-control col-md-7 col-xs-12">
+	  </div>
 	</div>
-	<div class="form-group">
-		<label for="lastname" class="col-sm-2 control-label">名称</label>
-		<div class="col-sm-10">
-			<input type="text" class="form-control" id="NAME" name="NAME" value=""
-				   placeholder="请输入">
-		</div>
+	<div class="item form-group">
+	  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">名称<span class="required"></span>
+	  </label>
+	  <div class="col-md-6 col-sm-6 col-xs-12">
+	    <input type="text" id="NAME" name="NAME" required="required" class="form-control col-md-7 col-xs-12">
+	  </div>
 	</div>
-	<div class="form-group">
-		<label for="lastname" class="col-sm-2 control-label">数据源</label>
-		<div class="col-sm-10">
-			<input type="text" class="form-control" id="SOURCE"  name="SOURCE" value="" 
-				   placeholder="请输入">
-		</div>
+	<div class="item form-group">
+	  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">数据源<span class="required"></span>
+	  </label>
+	  <div class="col-md-6 col-sm-6 col-xs-12">
+	    <input type="text" id="SOURCE" name="SOURCE" required="required" class="form-control col-md-7 col-xs-12">
+	  </div>
 	</div>
-	<div class="form-group">
-	<label for="lastname" class="col-sm-2 control-label">分析类型</label>
+	
+	
+	<div class="item form-group">
+	<label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">分析类型<span class="required"></span>
+	  </label>
 	<label class="checkbox-inline">
 		<input type="checkbox" id="dress" value="A" name="dress" > 着装
 	</label>
@@ -220,32 +223,36 @@
 		<input type="checkbox" id="NUM" value="C" name="NUM" onclick="clickonlinenum(this)"> 总人数
 	</label>
 </div>
-	<div class="form-group">
-		<label for="lastname" class="col-sm-2 control-label" >可见范围阈值</label>
-		<div class="col-sm-10">
-			<input type="text" class="form-control" id="ONLINE_NUM"  name="ONLINE_NUM"
-				   placeholder="请输入" >
-		</div>
+
+	<div class="item form-group">
+	  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">可见范围阀值<span class="required"></span>
+	  </label>
+	  <div class="col-md-6 col-sm-6 col-xs-12">
+	    <input type="text" id="ONLINE_NUM" name="ONLINE_NUM"  class="form-control col-md-7 col-xs-12">
+	  </div>
 	</div>
-	<div class="form-group">
-		<label for="lastname" class="col-sm-2 control-label">总人数阈值</label>
-		<div class="col-sm-10">
-			<input type="text" class="form-control" id="TOTAL"  name="TOTAL"
-				   placeholder="请输入">
-		</div>
+	<div class="item form-group">
+	  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">总人数阀值<span class="required"></span>
+	  </label>
+	  <div class="col-md-6 col-sm-6 col-xs-12">
+	    <input type="text" id="TOTAL" name="TOTAL"  class="form-control col-md-7 col-xs-12">
+	  </div>
 	</div>
+
+	
  <!--  -->
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default"  id="backButton" data-dismiss="modal">关闭
 				</button>
-				<button type="submit" id="submitButton" class="btn btn-primary">
-					提交更改
+				<button type="button" id="submitButton" class="btn btn-primary" onclick="submitform()">
+					提交
 				</button>
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal -->
 	</form>
+	
 	<!--  -->
 	<!--  -->
 </div>
@@ -283,6 +290,8 @@
     <script src="/build/js/custom.min.js"></script>
     <script src="/build/js/camera.js"></script>
     <script src="/build/js/comm.js"></script>
+    <script src="/build/js/validator.js"></script>
+    <script src="/build/js/fastclick.js"></script>
 
   </body>
 </html>
