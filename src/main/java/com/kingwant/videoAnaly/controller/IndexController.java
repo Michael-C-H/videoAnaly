@@ -7,9 +7,14 @@ import java.util.Date;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.ExcessiveAttemptsException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
@@ -110,38 +115,56 @@ public class IndexController {
     
 
     @RequestMapping("/login")
-    public String login(){
+    public String login(Model model){
+    	model.addAttribute("message", "");
         return "login";
     }
-    @PostMapping("/login")
-    @ApiOperation(value="用户登录",notes="管理员")
-    public PublicResult<String> login(
-            @ValidationParam("userName,passWord")@RequestBody JSONObject requestJson) throws Exception{
-        String userName = requestJson.getString("userName");
-        String passWord = requestJson.getString("passWord");
-        if (ComUtil.isEmpty(userName) || ComUtil.isEmpty(passWord)) {
-            return new PublicResult<>(PublicResultConstant.PARAM_ERROR, null);
-        }
+    @RequestMapping("/loginDo")
+    public String login(HttpServletRequest request, Model model, String username, String password) throws Exception{
+        
+    	String error = ""; 
         /*调用shiro判断当前用户是否是系统用户*/
         //得到当前用户
         Subject subject = SecurityUtils.getSubject();
         //判断是否登录，如果未登录，则登录
-        if (!subject.isAuthenticated()) {
+        
             //创建用户名/密码验证Token, shiro是将用户录入的登录名和密码（未加密）封装到uPasswordToken对象中
-            UsernamePasswordToken uPasswordToken = new UsernamePasswordToken(userName,passWord);
+            UsernamePasswordToken uPasswordToken = new UsernamePasswordToken(username,password);
             //自动调用AuthRealm.doGetAuthenticationInfo
-            try {
-                //执行登录，如果登录未成功，则捕获相应的异常
-                subject.login(uPasswordToken);
-                return new PublicResult<>(PublicResultConstant.SUCCESS, "登录成功");
-            }catch (Exception e) {
-                // 捕获异常
-            	return new PublicResult<>(PublicResultConstant.FAILED, e.getMessage());
-            }
+            try {  
+            	subject.login(uPasswordToken);
+            } catch (UnknownAccountException ex) {// 用户名没有找到  
+                error = "您输入的用户名不存在";  
+            } catch (IncorrectCredentialsException ex) {// 用户名密码不匹配  
+                error = "用户名密码不匹配 ";  
+            }  
+            catch(ExcessiveAttemptsException e){  
+                error="密码错误次数已超五次，账号锁定1小时";  
+            }  
+            catch (AuthenticationException ex) {// 其他的登录错误  
+                ex.printStackTrace();  
+                error = ex.getMessage();  
+            }  
+            // 验证是否成功登录的方法  
+            if (subject.isAuthenticated()) {  
+            	 return  "redirect:/";  
+            } else {  
+                model.addAttribute("message", error);
+                model.addAttribute("loginUser", username);
+                HttpSession session = request.getSession();
+                session.setAttribute("username", username);
+                subject.logout();  
+                return "login";  
+            }  
         }
-        return new PublicResult<>(PublicResultConstant.SUCCESS, "登录成功");
-
+    @RequestMapping("/loginOut")
+    public String loginout() throws Exception{
+    	Subject subject = SecurityUtils.getSubject();
+    	subject.logout();
+    	return "login"; 
     }
+
+    
     
     
     @RequestMapping("/test")

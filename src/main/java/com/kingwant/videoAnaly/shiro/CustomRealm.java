@@ -10,6 +10,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -70,7 +71,7 @@ public class CustomRealm extends AuthorizingRealm {
      		throw new UnknownAccountException("账号错误");
      	}
      	if(!strloginpassword.equals(password)){
-     		throw new UnknownAccountException("密码错误");
+     		throw new IncorrectCredentialsException("密码错误");
      	}
      	User user = new User(username,password);
      	AuthenticationInfo authcInfo = new SimpleAuthenticationInfo(user, user.getPassword(), user.getUsername());
