@@ -161,7 +161,7 @@ public class IndexController {
     public String loginout() throws Exception{
     	Subject subject = SecurityUtils.getSubject();
     	subject.logout();
-    	return "login"; 
+    	return "redirect:/login"; 
     }
 
     

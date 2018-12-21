@@ -27,6 +27,7 @@ public class ShiroConfig {
         
         //开放接口
         filterChainDefinitionMap.put("/login", "anon");
+        filterChainDefinitionMap.put("/loginDo", "anon");
         filterChainDefinitionMap.put("/unauthorized", "anon");
         filterChainDefinitionMap.put("/druid/**", "anon");
         
@@ -37,10 +38,15 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/swagger-resources/**","anon");
         filterChainDefinitionMap.put("/v2/**","anon");
         filterChainDefinitionMap.put("/test","anon");
+        
+        filterChainDefinitionMap.put("/build/**", "anon");
+        filterChainDefinitionMap.put("/images/**", "anon");
+        filterChainDefinitionMap.put("/vendors/**", "anon");
+        
         //其余接口一律拦截
         //主要这行代码必须放在所有权限设置的最后，不然会导致所有 url 都被拦截
         //filterChainDefinitionMap.put("/**", "authc");
-        //filterChainDefinitionMap.put("/**", "authc");
+        filterChainDefinitionMap.put("/**", "authc");
 
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
