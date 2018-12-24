@@ -4,9 +4,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import springfox.documentation.annotations.ApiIgnore;
 import xyz.michaelch.mchtools.MCHException;
 
 @Controller
+@ApiIgnore()
 public class ErrorController {
 
     @RequestMapping("error404")

@@ -41,9 +41,11 @@ import com.kingwant.videoAnaly.util.KwHelper;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import io.swagger.annotations.ApiOperation;
+import springfox.documentation.annotations.ApiIgnore;
 import xyz.michaelch.mchtools.hepler.RequestHelper;
 
 @RestController
+@ApiIgnore()
 public class VideoCameraController {
 	
 	@Resource

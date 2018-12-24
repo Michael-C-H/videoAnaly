@@ -46,11 +46,13 @@ import com.kingwant.videoAnaly.util.HttpUtil;
 import com.kingwant.videoAnaly.util.KwHelper;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import xyz.michaelch.mchtools.hepler.RequestHelper;
 
 @RestController
 @RequestMapping("/api")
+@Api(tags="对外接口")
 public class ApiController {
 	
 	@Resource
@@ -66,6 +68,7 @@ public class ApiController {
 	//1.设置人数阀值(B/S) type=1修改total type=2修改online
 	@PostMapping("/video/setNumber")
     @ResponseBody
+    @ApiOperation(value="设置人数阀值",notes="需要传入参数,{type:1,number:5,id:'201811207'")
     public BootstrapPageResult<String> videoSetNumber(@ValidationParam("type,number,id")@RequestBody JSONObject requestJson){
 		try {
 			String type = requestJson.getString("type");
@@ -91,6 +94,7 @@ public class ApiController {
     }
 	//2.获取摄像头列表(B/S) 
 	@GetMapping("/video/getCameras")
+	@ApiOperation(value="获取摄像头配置列表",notes="不需要传入参数")
 	@ResponseBody
 	public BootstrapPageResult<List<VideoCamera>> videoGetCameras(){
 		try {
@@ -103,6 +107,7 @@ public class ApiController {
 	}
 	//3.视频分析应用推送异常消息(C/S),接收CS端推送的消息
 	@GetMapping("/video/pushMessage")
+	@ApiOperation(value="视频分析应用向视频分析系统推送异常消息",notes="需要传入参数:json数组")
 	@ResponseBody
 	public BootstrapPageResult<List<VideoCamera>> videoGetMessage(JsonArray message){
 		try {

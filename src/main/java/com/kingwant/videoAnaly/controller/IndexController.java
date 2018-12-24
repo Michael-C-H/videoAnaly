@@ -44,10 +44,12 @@ import com.kingwant.videoAnaly.util.ComUtil;
 import com.kingwant.videoAnaly.util.KwHelper;
 
 import io.swagger.annotations.ApiOperation;
+import springfox.documentation.annotations.ApiIgnore;
 import xyz.michaelch.mchtools.hepler.DateHelper;
 import xyz.michaelch.mchtools.hepler.RequestHelper;
 
 @Controller
+@ApiIgnore()
 public class IndexController {
 	
 	@Resource
