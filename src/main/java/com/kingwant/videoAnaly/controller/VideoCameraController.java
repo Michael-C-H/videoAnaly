@@ -63,11 +63,18 @@ public class VideoCameraController {
     	
     	
     	//搜索
-    	String search=RequestHelper.toStr(request, "search[value]",null);
+    	String name=RequestHelper.toStr(request, "name",null);
+    	String code=RequestHelper.toStr(request, "code",null);
     	Wrapper<VideoCamera> wrapper=new EntityWrapper<VideoCamera>();
-    	if (!KwHelper.isNullOrEmpty(search)) {			
-    		wrapper.like("name", search).or().like("code", search);
+    	if (!KwHelper.isNullOrEmpty(name)&&!KwHelper.isNullOrEmpty(code)) {			
+    		wrapper.like("name", name).or().like("code", code);
 		}
+    	if (!KwHelper.isNullOrEmpty(name)&&KwHelper.isNullOrEmpty(code)) {			
+    		wrapper.like("name", name);
+    	}
+    	if (KwHelper.isNullOrEmpty(name)&&!KwHelper.isNullOrEmpty(code)) {			
+    		wrapper.like("code", code);
+    	}
     	Page<VideoCamera> list=vcm.selectPage(page.getPageObj(),wrapper);
     	Page<VideoCamera> updatelist = vcm.updateAnalyType(list);
         return new BootstrapPageResult<VideoCamera>(updatelist,page.getDraw());

@@ -69,7 +69,24 @@ public class VideoDressAbnormalController {
     	page.setSize(length);
     	int current=start==0?1:(start/length+1);
     	page.setCurrent(current);*/
-    	
+		
+    	String code=RequestHelper.toStr(request, "code",null);
+    	String begintime=RequestHelper.toStr(request, "begintime",null);
+    	String endtime=RequestHelper.toStr(request, "endtime",null);
+    	/*if(!ComUtil.isEmpty(begintime)){
+    		try {
+				Date parsebegintime = DateHelper.parseDate(begintime, "yyyy-MM-dd hh:mm:ss");
+			} catch (ParseException e) {
+				return new BootstrapPageResult<>("后台时间转换异常", false);
+			}
+    	}
+    	if(!ComUtil.isEmpty(endtime)){
+    		try {
+    			Date parseendtime = DateHelper.parseDate(endtime, "yyyy-MM-dd hh:mm:ss");
+    		} catch (ParseException e) {
+    			return new BootstrapPageResult<>("后台时间转换异常", false);
+    		}
+    	}*/
     	
     	//搜索
     	String search=RequestHelper.toStr(request, "search[value]",null);

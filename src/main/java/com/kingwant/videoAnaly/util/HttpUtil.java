@@ -29,11 +29,7 @@ import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
  
-/**
- * @author 马弦
- * @date 2017年10月23日 下午2:49
- * HttpClient工具类
- */
+
 public class HttpUtil {
 	
 	private static Logger logger = Logger.getLogger(HttpUtil.class);
