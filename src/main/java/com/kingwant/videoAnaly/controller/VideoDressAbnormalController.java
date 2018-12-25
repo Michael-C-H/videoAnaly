@@ -62,7 +62,7 @@ public class VideoDressAbnormalController {
 	
 	@RequestMapping("/dresslist")
     @ResponseBody
-    public BootstrapPageResult<VideoDressAbnormal> test(HttpServletRequest request,BootstrapPageEntity<VideoDressAbnormal> page){
+    public BootstrapPageResult<VideoDressAbnormal> dresslist(HttpServletRequest request,BootstrapPageEntity<VideoDressAbnormal> page){
     	
     	
     /*	Page<VideoCamera> page=new Page<>();
@@ -71,31 +71,20 @@ public class VideoDressAbnormalController {
     	page.setCurrent(current);*/
 		
     	String code=RequestHelper.toStr(request, "code",null);
-    	String begintime=RequestHelper.toStr(request, "begintime",null);
-    	String endtime=RequestHelper.toStr(request, "endtime",null);
-    	/*if(!ComUtil.isEmpty(begintime)){
-    		try {
-				Date parsebegintime = DateHelper.parseDate(begintime, "yyyy-MM-dd hh:mm:ss");
-			} catch (ParseException e) {
-				return new BootstrapPageResult<>("后台时间转换异常", false);
-			}
+    	String dresstime=RequestHelper.toStr(request, "dresstime",null);
+    	String begintime = "";
+    	String endtime = "";
+    	if(!ComUtil.isEmpty(dresstime)){
+    		String[] split = dresstime.split("~");
+    		begintime = split[0];
+    		endtime = split[1];
     	}
-    	if(!ComUtil.isEmpty(endtime)){
-    		try {
-    			Date parseendtime = DateHelper.parseDate(endtime, "yyyy-MM-dd hh:mm:ss");
-    		} catch (ParseException e) {
-    			return new BootstrapPageResult<>("后台时间转换异常", false);
-    		}
-    	}*/
     	
     	//搜索
-    	String search=RequestHelper.toStr(request, "search[value]",null);
     	Wrapper<VideoDressAbnormal> wrapper=new EntityWrapper<VideoDressAbnormal>();
     	wrapper.setSqlSelect(" ID AS id, CODE AS code, NAME AS name, EX_DATE AS exDate, REASON AS reason");
+    	wrapper= vds.selectTime(wrapper, code, begintime, endtime);
     	wrapper.orderBy("EX_DATE", false);
-    	if (!KwHelper.isNullOrEmpty(search)) {	
-    		wrapper.like("name", search).or().like("code", search);
-		}
     	
     	Page<VideoDressAbnormal> list=vds.selectPage(page.getPageObj(),wrapper);
     	List<VideoDressAbnormal> records = list.getRecords();
@@ -108,5 +97,6 @@ public class VideoDressAbnormalController {
     	
         return new BootstrapPageResult<VideoDressAbnormal>(list,page.getDraw());
     }
+	
     
 }

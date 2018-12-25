@@ -39,20 +39,11 @@
 	                   
 	                   <label class="control-label">编号：</label>
 	                    <input type="text" id="s_code"  placeholder="编号" >
-	                   <label class="control-label">开始时间：</label>
-	                    <input type="text" id="stTime"  placeholder="开始" >
-	                    <label class="control-label">结束时间：</label> 
-	                    <fieldset>
-                          <div class="control-group">
-                            <div class="controls">
-                              <div class="col-md-11 xdisplay_inputx form-group has-feedback">
-                                <input type="text" class="form-control has-feedback-left" id="single_cal2" placeholder="First Name" aria-describedby="inputSuccess2Status2">
-                                <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
-                                <span id="inputSuccess2Status2" class="sr-only">(success)</span>
-                              </div>
-                            </div>
-                          </div>
-                        </fieldset>
+	                   <label class="control-label">选择时间：</label>
+                             <div class="input-prepend input-group">
+                               <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                               <input type="text" name="dresstime" id="dresstime" class="form-control" value="01/01/2016 - 01/25/2016" />
+                             </div>
 	                   	<a class="btn btn-success btn-sm" title="搜索" href="javascript:void(0)" onclick="myDataTable.ajax.reload()"><i class="fa fa-search"></i>搜索</a>
 	                    
                     </div>
@@ -159,14 +150,14 @@
      <div th:replace="~{inc/inc :: foot_js}">
   </div>
     <!-- Custom Theme Scripts -->
+	<script src="/build/js/moment.js"></script>
+	<script src="/build/js/daterangepicker.js"></script>
+	<script src="/build/js/datetimepicker.js"></script>
     <script src="/build/js/custom.min.js"></script>
     <script src="/build/js/dress.js"></script>
     <script src="/build/js/comm.js"></script>
     <script src="/build/js/validator.js"></script>
     <script src="/build/js/fastclick.js"></script>
-	<script src="/build/js/daterangepicker.js"></script>
-	<script src="/build/js/moment.js"></script>
-    
-
+	
   </body>
 </html>

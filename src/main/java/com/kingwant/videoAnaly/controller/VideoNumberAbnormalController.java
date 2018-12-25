@@ -66,14 +66,22 @@ public class VideoNumberAbnormalController {
     	page.setSize(length);
     	int current=start==0?1:(start/length+1);
     	page.setCurrent(current);*/
-    	
+		
     	
     	//搜索
-    	String search=RequestHelper.toStr(request, "search[value]",null);
+        String code=RequestHelper.toStr(request, "code",null);
+    	String dresstime=RequestHelper.toStr(request, "numbertime",null);
+    	String begintime = "";
+    	String endtime = "";
+    	if(!ComUtil.isEmpty(dresstime)){
+    		String[] split = dresstime.split("~");
+    		begintime = split[0];
+    		endtime = split[1];
+    	}
     	Wrapper<VideoNumberAbnormal> wrapper=new EntityWrapper<VideoNumberAbnormal>();
-    	if (!KwHelper.isNullOrEmpty(search)) {			
-    		wrapper.like("name", search).or().like("code", search);
-		}
+    	wrapper.setSqlSelect("  ID AS id, CODE AS code, NAME AS name, EX_DATE AS exDate,LIMIT AS limit, CURRENT_NUM AS currentNum");
+    	wrapper= vns.selectTime(wrapper, code, begintime, endtime);
+    	wrapper.orderBy("EX_DATE", false);
     	
     	Page<VideoNumberAbnormal> list=vns.selectPage(page.getPageObj(),wrapper);
     	List<VideoNumberAbnormal> records = list.getRecords();

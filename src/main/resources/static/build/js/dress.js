@@ -1,3 +1,32 @@
+$('#dresstime').daterangepicker({
+        "timePicker": true,
+        "timePicker24Hour": true,
+        "linkedCalendars": false,
+        "autoUpdateInput": false,
+		"showDropdowns": true,
+        "locale": {
+            format: 'YYYY-MM-DD HH:mm:ss',
+            separator: '~',
+            applyLabel: "应用",
+            cancelLabel: "清空",
+			daysOfWeek: ['日', '一', '二', '三', '四', '五', '六'],
+		monthNames: ['一月', '二月', '三月', '四月', '五月', '六月',
+			'七月', '八月', '九月', '十月', '十一月', '十二月'
+		],
+		firstDay: 1
+        }
+    }, function(start, end, label) {              
+        
+		$('#dresstime').val(this.startDate.format(this.locale.format)+this.locale.separator+this.endDate.format(this.locale.format));
+		//console.log($('#reservation-time').val());
+		
+    });
+	//清除初始值
+	$('#dresstime').val('');
+	$('#dresstime').on('cancel.daterangepicker', function (ev, picker) {
+        $('#dresstime').val('');               
+    });
+
 var myDataTable;
 $(document).ready(function() {
 		initDt();		
@@ -22,7 +51,7 @@ function initDt(){
 	var searchParams = function(){
 		return {
 			"code" : $("#s_code").val(),
-			"name" : $("#s_name").val()	
+			"dresstime" : $("#dresstime").val()	
 		}
 	};
 	dtconfig.ajax.data = dtconfig.ajax.data(searchParams);	
