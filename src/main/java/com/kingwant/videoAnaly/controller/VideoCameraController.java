@@ -87,11 +87,8 @@ public class VideoCameraController {
 		String CODE = request.getParameter("CODE");
 		String NAME = request.getParameter("NAME");
 		String SOURCE = request.getParameter("SOURCE");
-		String dress = request.getParameter("dress");
-		String ONLINE = request.getParameter("ONLINE");
 		String[] anltsisType=request.getParameterValues("anltsisType");
 		
-		String NUM = request.getParameter("NUM");
 		String ONLINE_NUM = request.getParameter("ONLINE_NUM");
 		String TOTAL = request.getParameter("TOTAL");
 		StringBuilder sb = new StringBuilder();
