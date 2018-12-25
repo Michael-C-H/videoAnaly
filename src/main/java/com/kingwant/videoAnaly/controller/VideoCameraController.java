@@ -131,6 +131,8 @@ public class VideoCameraController {
 			videoCamera.setCode(CODE);
 			videoCamera.setName(NAME);
 			videoCamera.setSource(SOURCE);
+			videoCamera.setLinePt1("start");
+			videoCamera.setLinePt2("end");
 			if(Objects.equal(null, sb)){
 				videoCamera.setAnltsisType("");
 			}else{

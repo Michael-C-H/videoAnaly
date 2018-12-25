@@ -85,7 +85,7 @@ function initDt(){
 }
 
 function newpage(id,name){
-	window.open("/dress/detail?id="+id) 
+	window.open("/dressEx/detail?id="+id) 
 }
 function check(id,name){
 	 $("#myModal").modal().on(

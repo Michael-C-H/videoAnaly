@@ -59,7 +59,7 @@ public class IndexController {
 	@Resource
 	private IVideoNumberAbnormalService vns;
 	
-	@RequestMapping("/dress/detail")
+	@RequestMapping("/dressEx/detail")
     public String dressnewpage(String id,Model model){
     	
     	VideoDressAbnormal videoDressAbnormal = vas.selectById(id);
