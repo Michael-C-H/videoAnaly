@@ -1,47 +1,26 @@
 package com.kingwant.videoAnaly.controller;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.subject.Subject;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.google.common.base.Objects;
-import com.kingwant.videoAnaly.annonation.ValidationParam;
-import com.kingwant.videoAnaly.base.PublicResult;
-import com.kingwant.videoAnaly.base.PublicResultConstant;
 import com.kingwant.videoAnaly.entity.BootstrapPageEntity;
 import com.kingwant.videoAnaly.entity.BootstrapPageResult;
-import com.kingwant.videoAnaly.entity.User;
 import com.kingwant.videoAnaly.entity.VideoCamera;
-import com.kingwant.videoAnaly.mapper.VideoCameraMapper;
 import com.kingwant.videoAnaly.service.IVideoCameraService;
 import com.kingwant.videoAnaly.util.ComUtil;
 import com.kingwant.videoAnaly.util.KwHelper;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
-import io.swagger.annotations.ApiOperation;
 import springfox.documentation.annotations.ApiIgnore;
 import xyz.michaelch.mchtools.hepler.RequestHelper;
 
@@ -128,17 +107,7 @@ public class VideoCameraController {
 			VideoCamera videoCamera = new VideoCamera();
 			String uuid = UUID.randomUUID().toString();
 			uuid = uuid.replace("-", "");
-			videoCamera.setId(uuid);
-			videoCamera.setCode(CODE);
-			videoCamera.setName(NAME);
-			videoCamera.setSource(SOURCE);
-			if(Objects.equal(null, sb)){
-				videoCamera.setAnltsisType("");
-			}else{
-				videoCamera.setAnltsisType(sb.toString());
-			}
-			videoCamera.setOnlineNum(ONLINE_NUM);
-			videoCamera.setTotal(TOTAL);
+			videoCamera = setvalue(CODE, NAME, SOURCE, ONLINE_NUM, TOTAL, sb, videoCamera, uuid);
 			try{
 				vcm.insert(videoCamera);
 				return new BootstrapPageResult<String>("新增成功",true);
@@ -150,16 +119,7 @@ public class VideoCameraController {
 			if(Objects.equal(null, videoCamera)){
 				return new BootstrapPageResult<String>("修改的该条数据已经不存在",false);
 			}
-			videoCamera.setCode(CODE);
-			videoCamera.setName(NAME);
-			videoCamera.setSource(SOURCE);
-			if(Objects.equal(null, sb)){
-				videoCamera.setAnltsisType("");
-			}else{
-				videoCamera.setAnltsisType(sb.toString());
-			}
-			videoCamera.setOnlineNum(ONLINE_NUM);
-			videoCamera.setTotal(TOTAL);
+			videoCamera = setvalue(CODE, NAME, SOURCE, ONLINE_NUM, TOTAL, sb, videoCamera, id);
 			try{
 				vcm.updateById(videoCamera);
 				return new BootstrapPageResult<String>("修改成功",true);
@@ -169,6 +129,22 @@ public class VideoCameraController {
 			
 		}
 		
+	}
+
+	private VideoCamera setvalue(String CODE, String NAME, String SOURCE, String ONLINE_NUM, String TOTAL, StringBuilder sb,
+			VideoCamera videoCamera, String uuid) {
+		videoCamera.setId(uuid);
+		videoCamera.setCode(CODE);
+		videoCamera.setName(NAME);
+		videoCamera.setSource(SOURCE);
+		if(Objects.equal(null, sb)){
+			videoCamera.setAnltsisType("");
+		}else{
+			videoCamera.setAnltsisType(sb.toString());
+		}
+		videoCamera.setOnlineNum(ONLINE_NUM);
+		videoCamera.setTotal(TOTAL);
+		return videoCamera;
 	}
 	@RequestMapping("/deletevc")
 	public BootstrapPageResult<String> deletevc(String id){
