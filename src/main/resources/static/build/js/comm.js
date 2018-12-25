@@ -47,6 +47,7 @@ $.fn.dtconfig =  {
 			lengthMenu : [ // 自定义分页长度
 			[ 10, 50, 100 ],[ '10 条', '50条', '100条' ] ],
 			ordering : false,
+			"autoWidth": false, //自适应宽度
 			"ajax" : {
 				//"url" : "/videocameralist",
 				"type" : "POST",
