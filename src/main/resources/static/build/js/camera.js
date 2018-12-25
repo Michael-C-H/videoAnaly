@@ -53,8 +53,6 @@ function initDt(){
 	myDataTable = $('#camera-datatable').DataTable(dtconfig);	
 	
 }
-var $table = $('#camera-datatable');
-var isAdd=false;
 //新增
 function add(){
 	//清除
@@ -169,7 +167,6 @@ function del(id,name){
 
 function edit(id,name){
 	 $("#myModal").modal("show");
-	 
 	 $.ajax(
              {
                  url: "/selectone",

@@ -47,6 +47,7 @@ public class VideoCameraServiceImpl extends ServiceImpl<VideoCameraMapper, Video
 					stringBuilder.append("总人数异常,");
 				}
 				if(!Objects.equal(null,stringBuilder)){
+					stringBuilder = stringBuilder.deleteCharAt(stringBuilder.length()-1);
 					videoCamera.setAnltsisType(stringBuilder.toString());
 				}
 			}
