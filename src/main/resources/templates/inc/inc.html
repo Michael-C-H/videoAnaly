@@ -3,6 +3,7 @@
 
 
   <head th:fragment="head">
+    <link rel="shortcut icon" href="/favicon.ico" /> 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
@@ -37,7 +38,7 @@
       <div class="main_container">
       
       
-        <div class="col-md-3 left_col" th:fragment="left (activeMenu)">
+        <div class="col-md-3 left_col menu_fixed" th:fragment="left (activeMenu)">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
               <a href="#" class="site_title"><i class="fa fa-video-camera"></i> <span>视频分析管理</span></a>
