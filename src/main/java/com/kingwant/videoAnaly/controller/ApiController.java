@@ -104,9 +104,9 @@ public class ApiController {
 			return new BootstrapPageResult<>(false,"推送消息失败"+e.getMessage(),null);
 		}
 	}
-	//3.视频分析应用推送异常消息(C/S),接收CS端推送的消息
+	//4.测试接收推送消息
 	@PostMapping("/video/getMessage")
-	@ApiOperation(value="视频分析应用向视频分析系统推送异常消息",notes="需要传入参数:json数组")
+	@ApiOperation(value="测试接收推送消息",notes="需要传入参数:json数组")
 	@ResponseBody
 	public BootstrapPageResult<String> videoGetMessage(HttpServletResponse rep,HttpServletRequest request){
 		try {

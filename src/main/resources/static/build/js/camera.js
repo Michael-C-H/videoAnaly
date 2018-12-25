@@ -57,20 +57,9 @@ var $table = $('#camera-datatable');
 var isAdd=false;
 //新增
 function add(){
-	isAdd=true;
-	$("#myModal").modal().on(
-            "shown.bs.modal",
-            function() {
-            	if(isAdd){            		
-            		$(':input','#updateform').not(':button,:submit,:reset').val('').removeAttr('checked').removeAttr('checked');
-            	}
-            	/*$(this).removeData("bs.modal");
-            	$('#myform')[0].reset();*/
-            }).on('hidden.bs.modal', function(event) {
-            	// 关闭弹出框的时候清除绑定(这个清空包括清空绑定和清空注册事件)
-            	
-            	
-    });
+	//清除
+	$('#modifyForm')[0].reset();
+	$("#myModal").modal("show");
 }
 //表单提交
 function submitform(){
@@ -105,7 +94,7 @@ function submitform(){
 function ajaxsubmit(){
 	$.ajax({
         url:"/updateorinsertvc",
-        data:$('#modifyForm').serialize(),
+        data:$('#modifyForm').serializeArray(),
         async:false,
         type:"post",
         success:function(data){
@@ -179,13 +168,7 @@ function del(id,name){
 
 
 function edit(id,name){
-	isAdd=false;
-	 $("#myModal").modal().on(
-             "shown.bs.modal",
-             function() {
-             }).on('hidden.bs.modal', function() {
-         // 关闭弹出框的时候清除绑定(这个清空包括清空绑定和清空注册事件)
-     });
+	 $("#myModal").modal("show");
 	 
 	 $.ajax(
              {

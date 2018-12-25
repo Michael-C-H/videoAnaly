@@ -1,5 +1,6 @@
 package com.kingwant.videoAnaly.controller;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -88,6 +89,8 @@ public class VideoCameraController {
 		String SOURCE = request.getParameter("SOURCE");
 		String dress = request.getParameter("dress");
 		String ONLINE = request.getParameter("ONLINE");
+		String[] anltsisType=request.getParameterValues("anltsisType");
+		
 		String NUM = request.getParameter("NUM");
 		String ONLINE_NUM = request.getParameter("ONLINE_NUM");
 		String TOTAL = request.getParameter("TOTAL");
@@ -102,19 +105,20 @@ public class VideoCameraController {
 			return new BootstrapPageResult<String>("数据源地址为空",false);
 		}
 		//分析拼接类型数据ABC
-		if(ComUtil.isEmpty(dress)&&ComUtil.isEmpty(ONLINE)&&ComUtil.isEmpty(NUM)){
+		if(ComUtil.isEmpty(anltsisType)){
 			sb = null;
 		}else{
-			if(!ComUtil.isEmpty(dress)){
+			List<String> list=Arrays.asList(anltsisType);
+			if(list.contains("A")){
 				sb =sb.append("A,");
 			}
-			if(!ComUtil.isEmpty(ONLINE)){
+			if(list.contains("B")){
 				if(ComUtil.isEmpty(ONLINE_NUM)){
 					return new BootstrapPageResult<String>("可见范围阀值为空",false);
 				}
 				sb =sb.append("B,");
 			}
-			if(!ComUtil.isEmpty(NUM)){
+			if(list.contains("C")){
 				if(ComUtil.isEmpty(TOTAL)){
 					return new BootstrapPageResult<String>("总人数阀值为空",false);
 				}
@@ -131,8 +135,6 @@ public class VideoCameraController {
 			videoCamera.setCode(CODE);
 			videoCamera.setName(NAME);
 			videoCamera.setSource(SOURCE);
-			videoCamera.setLinePt1("start");
-			videoCamera.setLinePt2("end");
 			if(Objects.equal(null, sb)){
 				videoCamera.setAnltsisType("");
 			}else{
@@ -141,7 +143,7 @@ public class VideoCameraController {
 			videoCamera.setOnlineNum(ONLINE_NUM);
 			videoCamera.setTotal(TOTAL);
 			try{
-				boolean flag = vcm.insert(videoCamera);
+				vcm.insert(videoCamera);
 				return new BootstrapPageResult<String>("新增成功",true);
 			}catch (Exception e) {
 				return new BootstrapPageResult<String>("新增失败"+e.getMessage(),false);

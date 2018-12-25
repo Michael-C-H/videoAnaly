@@ -83,76 +83,15 @@
       </div>
     </div>
     
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-					&times;
-				</button>
-				<span class="modal-title" id="myModalLabel">
-					详情
-				</span>
-			</div>
-			<div class="modal-body">
-<!--  -->	 
-		<div class="list-group">
-    <a href="#" class="list-group-item xx-item-ma ">
-    <span class="list-group-item-text">
-            编号
-        </span>
-        <span class="list-group-item-heading" id="code">
-            	
-        </span>
-    </a>
-    <a href="#" class="list-group-item xx-item-ma " >
-    <span class="list-group-item-text">
-            名称
-        </span>
-        <span class="list-group-item-heading" id="name">
-            	
-        </span>
-    </a>
-    <a href="#" class="list-group-item xx-item-ma " >
-    <span class="list-group-item-text">
-           时间
-        </span>
-        <span class="list-group-item-heading" id="exDate">
-            
-        </span>
-    </a>
-    <a href="#" class="list-group-item xx-item-ma ">
-    <span class="list-group-item-text">
-            人数阈值
-        </span>
-        <span class="list-group-item-heading" id="limit">
-            
-        </span>
-    </a>
-    <a href="#" class="list-group-item xx-item-ma ">
-    <span class="list-group-item-text">
-            实际人数
-        </span>
-        <span class="list-group-item-heading" id="currentNum">
-            
-        </span>
-    </a>
-</div>
- <!--  -->
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default"  id="backButton" data-dismiss="modal">关闭
-				</button>
-			</div>
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal -->
-</div>
+   
 	<div th:replace="~{inc/inc :: foot_js}">
   </div>
     <!-- Custom Theme Scripts -->
-    <script src="/build/js/moment.js"></script>
-	<script src="/build/js/daterangepicker.js"></script>
-	<script src="/build/js/datetimepicker.js"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="/vendors/moment/min/moment.min.js"></script>
+    <script src="/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- bootstrap-datetimepicker -->    
+    <script src="/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
     <script src="/build/js/custom.min.js"></script>
     <script src="/build/js/num.js"></script>
     <script src="/build/js/comm.js"></script>
