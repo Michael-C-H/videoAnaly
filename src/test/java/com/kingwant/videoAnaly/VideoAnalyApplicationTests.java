@@ -45,7 +45,7 @@ public class VideoAnalyApplicationTests {
 	
 	
 	
-	@Resource
+	/*@Resource
 	VideoDressAbnormalMapper vdam;
 	
 	@Test
@@ -115,7 +115,7 @@ public class VideoAnalyApplicationTests {
 		  bytestream.close(); 
 		 
 		  return imgdata; 
-		}
+		}*/
 
 }
 

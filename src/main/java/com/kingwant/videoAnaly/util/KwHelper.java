@@ -15,6 +15,10 @@ import org.quartz.impl.triggers.CronTriggerImpl;
 
 
 
+/**
+ * @author ch
+ *
+ */
 public class KwHelper {
 
 	/**
@@ -230,15 +234,14 @@ public class KwHelper {
 			
 		}
 
+		
+		private static final Pattern email_pattern = Pattern.compile("\"\\\\w+([-+.]\\\\w+)*@\\\\w+([-.]\\\\w+)*\\\\.\\\\w+([-.]\\\\w+)*\"");
 		/**
 		 * 校验邮箱格式
 		 */
 		public static boolean checkEmail(String value) {
 			boolean flag = false;
-			Pattern p1 = null;
-			Matcher m = null;
-			p1 = Pattern.compile("\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*");
-			m = p1.matcher(value);
+			Matcher m = email_pattern.matcher(value);
 			flag = m.matches();
 			return flag;
 		}
