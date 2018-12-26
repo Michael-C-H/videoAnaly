@@ -24,17 +24,9 @@ $.showSuccess = function(str, func) {
         title : '成功 ',
         message : str,
         size : BootstrapDialog.SIZE_SMALL,
-        buttons : [ {
-            label : '确定',
-            action : function(dialogItself) {
-                dialogItself.close();
-            }
-        } ],
         // 指定时间内可自动关闭
-        /*
-		 * onshown : function(dialogRef) { setTimeout(function() {
-		 * dialogRef.close(); }, YUNM._set.timeout); },
-		 */
+		onshown : function(dialogRef) { setTimeout(function() {
+		dialogRef.close(); }, 500); },
         onhide : func
     });
 };

@@ -137,9 +137,7 @@ function del(id,name){
                         {
                             //alert('操作成功');
                             $.showSuccess("删除成功",myDataTable.ajax.reload());
-                            //成功之后刷新table
-                        	//myDataTable.ajax.reload();
-                        	//$("#myModal").modal("hide");
+                           
                         }
                         else
                         {
