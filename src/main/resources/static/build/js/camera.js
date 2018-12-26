@@ -32,10 +32,6 @@ function initDt(){
 	}, {
 		"data" : "total"
 	}, {
-		"data" : "linePt1"
-	}, {
-		"data" : "linePt2"
-	}, {
 		"data" : null
 	}];
 	//列操作
