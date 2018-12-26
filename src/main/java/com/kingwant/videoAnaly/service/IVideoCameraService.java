@@ -21,6 +21,10 @@ public interface IVideoCameraService extends IService<VideoCamera> {
 	List<VideoCamera> getVedioCameraList();
 
 	Page<VideoCamera> updateAnalyType(Page<VideoCamera> list);
+
+	VideoCamera selectsource(String sOURCE);
+
+	VideoCamera selectuptsource(String sOURCE, String id);
 	
 	
 	

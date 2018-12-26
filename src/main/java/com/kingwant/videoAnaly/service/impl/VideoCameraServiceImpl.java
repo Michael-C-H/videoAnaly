@@ -38,13 +38,13 @@ public class VideoCameraServiceImpl extends ServiceImpl<VideoCameraMapper, Video
 			if(!ComUtil.isEmpty(anltsisType)){
 				StringBuilder stringBuilder = new StringBuilder();
 				if(anltsisType.indexOf("A")!=-1){
-					stringBuilder.append("着装异常,");
+					stringBuilder.append("着装,");
 				}
 				if(anltsisType.indexOf("B")!=-1){
-					stringBuilder.append("区域内人数异常,");
+					stringBuilder.append("区域范围人数,");
 				}
 				if(anltsisType.indexOf("C")!=-1){
-					stringBuilder.append("总人数异常,");
+					stringBuilder.append("总人数,");
 				}
 				if(!Objects.equal(null,stringBuilder)){
 					stringBuilder = stringBuilder.deleteCharAt(stringBuilder.length()-1);
@@ -55,6 +55,22 @@ public class VideoCameraServiceImpl extends ServiceImpl<VideoCameraMapper, Video
 		}
     	return list;
 	}
+
+	@Override
+	public VideoCamera selectsource(String source) {
+		EntityWrapper<VideoCamera> ew = new EntityWrapper<>();
+		ew.where("SOURCE={0}", source);
+		return this.selectOne(ew);
+	}
+
+	@Override
+	public VideoCamera selectuptsource(String source, String id) {
+		EntityWrapper<VideoCamera> ew = new EntityWrapper<>();
+		ew.where("SOURCE={0}", source).and("ID!={0}", id);
+		return this.selectOne(ew);
+	}
+
+	
 
 	
 

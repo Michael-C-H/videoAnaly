@@ -80,6 +80,7 @@ public class VideoCameraController {
 		if(ComUtil.isEmpty(SOURCE)){
 			return new BootstrapPageResult<String>("数据源地址为空",false);
 		}
+		
 		//分析拼接类型数据ABC
 		if(ComUtil.isEmpty(anltsisType)){
 			sb = null;
@@ -104,6 +105,10 @@ public class VideoCameraController {
 		}
 		
 		if(ComUtil.isEmpty(id)){
+			VideoCamera selectsource = vcm.selectsource(SOURCE);
+			if(!ComUtil.isEmpty(selectsource)){
+				return new BootstrapPageResult<String>("数据源不能重复",false);
+			}
 			VideoCamera videoCamera = new VideoCamera();
 			String uuid = UUID.randomUUID().toString();
 			uuid = uuid.replace("-", "");
@@ -115,6 +120,10 @@ public class VideoCameraController {
 				return new BootstrapPageResult<String>("新增失败"+e.getMessage(),false);
 			}
 		}else{
+			VideoCamera selectsource = vcm.selectuptsource(SOURCE,id);
+			if(!ComUtil.isEmpty(selectsource)){
+				return new BootstrapPageResult<String>("数据源不能重复",false);
+			}
 			VideoCamera videoCamera = vcm.selectById(id);
 			if(Objects.equal(null, videoCamera)){
 				return new BootstrapPageResult<String>("修改的该条数据已经不存在",false);
