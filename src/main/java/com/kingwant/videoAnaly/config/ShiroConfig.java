@@ -45,7 +45,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/api/**", "anon");
         
         filterChainDefinitionMap.put("/favicon.ico", "anon");
-        filterChainDefinitionMap.put("/dress/detail", "anon");
+        filterChainDefinitionMap.put("/dressEx/detail", "anon");
         filterChainDefinitionMap.put("/numberEx/detail", "anon");
         
         //其余接口一律拦截
