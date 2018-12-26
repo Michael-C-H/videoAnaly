@@ -55,6 +55,7 @@ function add(){
 	$('#modifyForm')[0].reset();
 	$("#myModalLabel").text("新增");
 	$("#myModal").modal("show");
+	$("#formid").val("");
 }
 //表单提交
 function submitform(){
