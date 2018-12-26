@@ -53,6 +53,7 @@ function initDt(){
 function add(){
 	//清除
 	$('#modifyForm')[0].reset();
+	$("#myModalLabel").text("新增");
 	$("#myModal").modal("show");
 }
 //表单提交
@@ -99,11 +100,11 @@ function ajaxsubmit(){
         		
         	}
         	else{
-        		$.showErr("编辑失败"+data.msg);
+        		$.showErr("操作失败"+data.msg);
         	}
         },
         error:function(data){
-        	$.showErr("编辑失败"+data.msg);
+        	$.showErr("操作失败"+data.msg);
         }
     });
 }
@@ -161,6 +162,7 @@ function del(id,name){
 
 function edit(id,name){
 	 $("#myModal").modal("show");
+	 $("#myModalLabel").text("编辑");
 	 $.ajax(
              {
                  url: "/selectone",
@@ -209,12 +211,12 @@ function edit(id,name){
                      else
                      {
                         //$("#tip").html("<span style='color:red'>失败，请重试</span>");
-                    	 $.showErr("编辑失败"+data.msg);
+                    	 $.showErr("获取数据失败:"+data.msg);
                      }
                  },
                  error:function()
                  {
-                	 $.showErr("编辑失败"+msg);
+                	 $.showErr("获取数据失败:"+msg);
                  },
                  complete:function()
                  {
