@@ -112,7 +112,7 @@ public class VideoCameraController {
 			VideoCamera videoCamera = new VideoCamera();
 			String uuid = UUID.randomUUID().toString();
 			uuid = uuid.replace("-", "");
-			videoCamera = setvalue(CODE, NAME, SOURCE, ONLINE_NUM, TOTAL, sb, videoCamera, uuid);
+			videoCamera = setvalue(CODE, NAME, SOURCE, ONLINE_NUM, TOTAL, sb, videoCamera, uuid,anltsisType,true);
 			try{
 				vcm.insert(videoCamera);
 				return new BootstrapPageResult<String>("新增成功",true);
@@ -128,7 +128,7 @@ public class VideoCameraController {
 			if(Objects.equal(null, videoCamera)){
 				return new BootstrapPageResult<String>("修改的该条数据已经不存在",false);
 			}
-			videoCamera = setvalue(CODE, NAME, SOURCE, ONLINE_NUM, TOTAL, sb, videoCamera, id);
+			videoCamera = setvalue(CODE, NAME, SOURCE, ONLINE_NUM, TOTAL, sb, videoCamera, id,anltsisType,false);
 			try{
 				vcm.updateById(videoCamera);
 				return new BootstrapPageResult<String>("修改成功",true);
@@ -141,7 +141,7 @@ public class VideoCameraController {
 	}
 
 	private VideoCamera setvalue(String CODE, String NAME, String SOURCE, String ONLINE_NUM, String TOTAL, StringBuilder sb,
-			VideoCamera videoCamera, String uuid) {
+			VideoCamera videoCamera, String uuid,String[] anltsisType,Boolean flag) {
 		videoCamera.setId(uuid);
 		videoCamera.setCode(CODE);
 		videoCamera.setName(NAME);
@@ -151,8 +151,22 @@ public class VideoCameraController {
 		}else{
 			videoCamera.setAnltsisType(sb.toString());
 		}
-		videoCamera.setOnlineNum(ONLINE_NUM);
-		videoCamera.setTotal(TOTAL);
+		videoCamera.setOnlineNum("");
+		videoCamera.setTotal("");
+		if(ComUtil.isEmpty(anltsisType)){
+			
+			return videoCamera;
+		}else{
+			
+			List<String> list=Arrays.asList(anltsisType);
+			if(list.contains("B")){
+				videoCamera.setOnlineNum(ONLINE_NUM);
+			}
+			if(list.contains("C")){
+				videoCamera.setTotal(TOTAL);
+			}
+			
+		}
 		return videoCamera;
 	}
 	@RequestMapping("/deletevc")
