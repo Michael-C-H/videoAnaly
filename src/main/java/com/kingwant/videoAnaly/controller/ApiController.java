@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.json.JsonArray;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -64,10 +65,13 @@ public class ApiController {
 			if(Objects.equal(null, videoCamera)){
 				return new BootstrapPageResult<>(false,"后台根据id查询数据为空",null);
 			}
+			//type=3暂时未定义
 			if("1".equals(type)){
 				videoCamera.setTotal(number);
 			}else if("2".equals(type)){
 				videoCamera.setOnlineNum(number);
+			}else{
+				return new BootstrapPageResult<>(true,"传入分析类型值未定义",null);
 			}
 			vcm.updateById(videoCamera);
 			return new BootstrapPageResult<>(true,"设置成功",null);
@@ -108,22 +112,9 @@ public class ApiController {
 	@PostMapping("/video/getMessage")
 	@ApiOperation(value="测试接收推送消息",notes="需要传入参数:json数组")
 	@ResponseBody
-	public BootstrapPageResult<String> videoGetMessage(HttpServletResponse rep,HttpServletRequest request){
+	public BootstrapPageResult<String> videoGetMessage(@RequestBody JsonArray msg){
 		try {
-			//String json = request.getParameter("param");  //这是通过通过get方式去url 拼接的键值对，post方式取不到值。
-			request.setCharacterEncoding("UTF-8");         //返回页面防止出现中文乱码
-			BufferedReader reader = new BufferedReader(new InputStreamReader(request.getInputStream()));//post方式传递读取字符流
-			String jsonStr = null;
-			StringBuilder result = new StringBuilder();
-			try {
-			while ((jsonStr = reader.readLine()) != null) {
-			result.append(jsonStr);
-			}
-			} catch (IOException e) {
-			e.printStackTrace();
-			}
-			reader.close();// 关闭输入流
-			JSONObject jsonObject = JSONObject.parseObject(result.toString()); // 取一个json转换为对象
+			System.err.println(msg.toString());
 			return new BootstrapPageResult<>(true,"推送消息成功",null);
 		} catch (Exception e) {
 			return new BootstrapPageResult<>(false,"推送消息失败"+e.getMessage(),null);

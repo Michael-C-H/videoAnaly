@@ -38,7 +38,7 @@ public class ResetVideoServiceImpl implements IResetVideoService{
 	public void resetVideoCamera(String id) {
 		VideoCamera videoCamera = vcm.selectById(id);
 		JSONObject json = JSONObject.fromObject(videoCamera);
-		HttpUtil.doPost(URL, json);
+		HttpUtil.doPost(URL, json.toString());
 	}
 	
 	

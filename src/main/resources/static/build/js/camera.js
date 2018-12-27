@@ -1,6 +1,7 @@
 var myDataTable;
 $(document).ready(function() {
-		initDt();		
+		initDt();
+		
 });
 
 function initDt(){
@@ -45,6 +46,23 @@ function initDt(){
         }
 
     }];
+	
+	 dtconfig.initComplete=function(row, data, dataIndex) {
+		 var tab = document.getElementById("camera-datatable"); //找到这个表格
+			var rows = tab.rows; //取得这个table下的所有行
+			for(var i=0;i<rows.length;i++)
+			{
+			for(var j=0;j<rows[i].cells.length;j++)
+			{
+			var cell = rows[i].cells[j];
+			if(($(cell).text()).indexOf("编辑") != -1||($(cell).text()).indexOf("删除") != -1){
+				continue;
+			}else{
+				$(cell).attr("title",cell.innerHTML);
+			}
+			}
+			}
+		 };
 	//实例化table
 	myDataTable = $('#camera-datatable').DataTable(dtconfig);	
 	
@@ -56,33 +74,57 @@ function add(){
 	$("#myModalLabel").text("新增");
 	$("#myModal").modal("show");
 	$("#formid").val("");
+	/*validator().unmark();
+	var divs = $(".alert");
+	for (var i = 0; i < divs.length; i++) {
+	        divs[i].parentNode.removeChild(divs[i])
+	        
+	   }*/
 }
 //表单提交
 function submitform(){
+	var numreg = /^[0-9]*[1-9][0-9]*$/;
+	var code = $("#CODE").val();
+	var name = $("#NAME").val();
+	var source = $("#SOURCE").val();
+	var onlinenum = $("#ONLINE_NUM").val();
+	var total = $("#TOTAL").val();
 	
-	if($("#CODE").val()==''){
-		$.showErr("编码不能为空");
+	
+	if(code ==''){
+		$.showErr("编号不能为空");
 		return false;
-	}else if($("#NAME").val()==''){
+	}else if(name==''){
 		$.showErr("名称不能为空");
 		return false;
-	}else if($("#SOURCE").val()==''){
+	}else if(source==''){
 		$.showErr("数据源不能为空");
 		return false;
-	}else if($("#ONLINE").is(':checked')){
-		if($("#ONLINE_NUM").val()==''){
-			$.showErr("勾选可见范围人数时,可见范围阀值必填");
+	}else{
+		
+	if($("#ONLINE").is(':checked')){
+		if(!numreg.test(onlinenum)){
+			$.showErr("可见范围阀值必须为正整数");
 			return false;
 		}
-		ajaxsubmit();
-	}else if($("#NUM").is(':checked')){
-		if($("#TOTAL").val()==''){
+		if(onlinenum==''){
+			$.showErr("勾选区域范围人数时,可见范围阀值必填");
+			return false;
+		}
+		
+	}
+	if($("#NUM").is(':checked')){
+		if(!numreg.test(total)){
+			$.showErr("总人数阀值必须为正整数");
+			return false;
+		}
+		if(total==''){
 			$.showErr("勾选总人数时,总人数阀值必填");
 			return false;
 		}
-		ajaxsubmit();
-	}else{
-		ajaxsubmit();
+		
+	}
+	ajaxsubmit();
 	}
 	
 }
@@ -98,7 +140,7 @@ function ajaxsubmit(){
         		//成功之后刷新table
         		myDataTable.ajax.reload();
         		$("#myModal").modal("hide");
-        		
+        		$.showSuccess("操作成功",myDataTable.ajax.reload());
         	}
         	else{
         		$.showErr("操作失败"+data.msg);
@@ -226,6 +268,10 @@ function edit(id,name){
              });
     
 }
+
+
+
+
 
 
 

@@ -43,6 +43,9 @@ public class VideoNumberAbnormalServiceImpl extends ServiceImpl<VideoNumberAbnor
         	if (!KwHelper.isNullOrEmpty(begintime)&&KwHelper.isNullOrEmpty(endtime)){	
         		wrapper.where("EX_DATE>=to_date({0}, ' yyyy-MM-dd hh24:mi:ss')", begintime).like("code", code);
         	}
+        	if (KwHelper.isNullOrEmpty(begintime)&&KwHelper.isNullOrEmpty(endtime)){	
+        		wrapper.like("code", code);
+        	}
     	}
 		return wrapper;
 	}
