@@ -1,7 +1,6 @@
 var myDataTable;
 $(document).ready(function() {
-		initDt();
-		
+		initDt();		
 });
 
 function initDt(){
@@ -69,68 +68,33 @@ function initDt(){
 }
 //新增
 function add(){
-	//清除
-	$('#modifyForm')[0].reset();
-	$("#myModalLabel").text("新增");
-	$("#myModal").modal("show");
-	$("#formid").val("");
-	/*validator().unmark();
-	var divs = $(".alert");
-	for (var i = 0; i < divs.length; i++) {
-	        divs[i].parentNode.removeChild(divs[i])
-	        
-	   }*/
+	loadModal("新增");
 }
 //表单提交
-function submitform(){
-	var numreg = /^[0-9]*[1-9][0-9]*$/;
-	var code = $("#CODE").val();
-	var name = $("#NAME").val();
-	var source = $("#SOURCE").val();
-	var onlinenum = $("#ONLINE_NUM").val();
-	var total = $("#TOTAL").val();
-	
-	
-	if(code ==''){
-		$.showErr("编号不能为空");
-		return false;
-	}else if(name==''){
-		$.showErr("名称不能为空");
-		return false;
-	}else if(source==''){
-		$.showErr("数据源不能为空");
-		return false;
-	}else{
-		
-	if($("#ONLINE").is(':checked')){
-		if(!numreg.test(onlinenum)){
-			$.showErr("可见范围阀值必须为正整数");
-			return false;
-		}
-		if(onlinenum==''){
-			$.showErr("勾选区域范围人数时,可见范围阀值必填");
-			return false;
-		}
-		
-	}
-	if($("#NUM").is(':checked')){
-		if(!numreg.test(total)){
-			$.showErr("总人数阀值必须为正整数");
-			return false;
-		}
-		if(total==''){
-			$.showErr("勾选总人数时,总人数阀值必填");
-			return false;
-		}
-		
-	}
+function submitform(){	
 	ajaxsubmit();
-	}
 	
 }
 
-function ajaxsubmit(){
-	$.ajax({
+function ajaxsubmit(){	
+	//基础验证
+	 $('#modifyForm').parsley().validate();
+	 //复选框验证
+	 var f=false;
+	 $('input[name="anltsisType"]').each(function(){  
+		 if($(this).is(":checked")){
+			 f=true;
+			 return false;
+		 }
+	 });
+	
+	 if (true === $('#modifyForm').parsley().isValid()) {
+		 if(!f){
+			 $.showErr("请至少选择一个分析类型！");
+			 return;
+		 }
+		 
+		 $.ajax({
         url:"/updateorinsertvc",
         data:$('#modifyForm').serializeArray(),
         async:false,
@@ -150,6 +114,7 @@ function ajaxsubmit(){
         	$.showErr("操作失败"+data.msg);
         }
     });
+}
 }
 function del(id,name){
 	BootstrapDialog.confirm({
@@ -203,9 +168,7 @@ function del(id,name){
 }
 
 
-function edit(id,name){
-	 $("#myModal").modal("show");
-	 $("#myModalLabel").text("编辑");
+function edit(id,name){	
 	 $.ajax(
              {
                  url: "/selectone",
@@ -266,7 +229,61 @@ function edit(id,name){
                      // $('#tips').hide();
                  }
              });
+	 
+	 loadModal("编辑");
     
+}
+
+
+function loadModal(name){
+	
+	//模式框标题
+	$("#myModalLabel").text(name);
+	
+	
+	if("新增"==name){//新增定制
+		$('#modifyForm')[0].reset();
+		$("#formid").val("");
+	}else if("编辑"==name){//编辑定制
+		
+	}
+	//展示模式框
+	 $("#myModal").modal("show");
+	 //重置验证
+	 $('#modifyForm').parsley().reset();
+	 
+	 //是否展示对应人数框
+	 $('input[name="anltsisType"]').each(function(){  
+		 showOrHide($(this).val(),$(this).is(":checked"));
+	 });
+	 //添加change事件
+	 $("#ONLINE").change(function() { 
+		 showOrHide($(this).val(),$(this).is(":checked"));
+	 });
+	 $("#NUM").change(function() { 
+		 showOrHide($(this).val(),$(this).is(":checked"));
+	 });
+	
+}
+
+function showOrHide(val,checked){
+	var str=checked?'block':'none';
+	
+	if("B"==val){
+		$("#range-num").css('display',str); 
+		if(checked){
+			 $("#ONLINE_NUM").attr("required","required");
+		}else{
+			 $("#ONLINE_NUM").removeAttr("required");
+		}
+	}else if("C"==val){
+		$("#total-num").css('display',str); 
+		if(checked){
+			 $("#TOTAL").attr("required","required");
+		}else{
+			 $("#TOTAL").removeAttr("required");
+		}
+	}
 }
 
 
