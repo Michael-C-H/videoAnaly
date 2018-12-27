@@ -12,3 +12,13 @@
   .list-input-date{
  	min-width: 280px;
  }
+ /* 下面两个设置表格列表文本过长时用...替代 */
+ .list-datatable{
+ 	 table-layout:fixed;
+ }
+.list-datatable tr td {   
+ text-overflow: ellipsis; /* for IE */  
+ -moz-text-overflow: ellipsis; /* for Firefox,mozilla */  
+ overflow: hidden;   
+ white-space: nowrap;
+} 
