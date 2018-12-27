@@ -1,13 +1,7 @@
 package com.kingwant.videoAnaly.controller;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.json.JsonArray;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -70,6 +64,8 @@ public class ApiController {
 				videoCamera.setTotal(number);
 			}else if("2".equals(type)){
 				videoCamera.setOnlineNum(number);
+			}else if("3".equals(type)){
+				return new BootstrapPageResult<>(true,"该类型正在开发",null);
 			}else{
 				return new BootstrapPageResult<>(true,"传入分析类型值未定义",null);
 			}
@@ -112,7 +108,7 @@ public class ApiController {
 	@PostMapping("/video/getMessage")
 	@ApiOperation(value="测试接收推送消息",notes="需要传入参数:json数组")
 	@ResponseBody
-	public BootstrapPageResult<String> videoGetMessage(@RequestBody JsonArray msg){
+	public BootstrapPageResult<String> videoGetMessage(@RequestBody JSONArray msg){
 		try {
 			System.err.println(msg.toString());
 			return new BootstrapPageResult<>(true,"推送消息成功",null);
