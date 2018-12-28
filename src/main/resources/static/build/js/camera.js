@@ -261,15 +261,23 @@ function showOrHide(val,checked){
 		$("#range-num").css('display',str); 
 		if(checked){
 			 $("#ONLINE_NUM").attr("required","required");
+			 $("#ONLINE_NUM").attr("data-parsley-type","integer");
+			 $("#ONLINE_NUM").attr("data-parsley-min","1");
 		}else{
 			 $("#ONLINE_NUM").removeAttr("required");
+			 $("#ONLINE_NUM").removeAttr("data-parsley-type");
+			 $("#ONLINE_NUM").removeAttr("data-parsley-min");
 		}
 	}else if("C"==val){
 		$("#total-num").css('display',str); 
 		if(checked){
 			 $("#TOTAL").attr("required","required");
+			 $("#TOTAL").attr("data-parsley-type","integer");
+			 $("#TOTAL").attr("data-parsley-min","1");
 		}else{
 			 $("#TOTAL").removeAttr("required");
+			 $("#TOTAL").removeAttr("data-parsley-type");
+			 $("#TOTAL").removeAttr("data-parsley-min");
 		}
 	}
 }
