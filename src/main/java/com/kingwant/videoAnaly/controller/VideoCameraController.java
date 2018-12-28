@@ -47,7 +47,7 @@ public class VideoCameraController {
     	String code=RequestHelper.toStr(request, "code",null);
     	Wrapper<VideoCamera> wrapper=new EntityWrapper<VideoCamera>();
     	if (!KwHelper.isNullOrEmpty(name)&&!KwHelper.isNullOrEmpty(code)) {			
-    		wrapper.like("name", name).or().like("code", code);
+    		wrapper.like("name", name).and().like("code", code);
 		}
     	if (!KwHelper.isNullOrEmpty(name)&&KwHelper.isNullOrEmpty(code)) {			
     		wrapper.like("name", name);
@@ -139,7 +139,7 @@ public class VideoCameraController {
 		}
 		
 	}
-
+	//修改或者新增的时候
 	private VideoCamera setvalue(String CODE, String NAME, String SOURCE, String ONLINE_NUM, String TOTAL, StringBuilder sb,
 			VideoCamera videoCamera, String uuid,String[] anltsisType,Boolean flag) {
 		videoCamera.setId(uuid);
