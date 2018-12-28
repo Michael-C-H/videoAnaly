@@ -44,26 +44,15 @@ function initDt(){
             return html;
         }
 
-    }];
-	
-	 dtconfig.initComplete=function(row, data, dataIndex) {
-		 var tab = document.getElementById("camera-datatable"); //找到这个表格
-			var rows = tab.rows; //取得这个table下的所有行
-			for(var i=0;i<rows.length;i++)
-			{
-			for(var j=0;j<rows[i].cells.length;j++)
-			{
-			var cell = rows[i].cells[j];
-			if(($(cell).text()).indexOf("编辑") != -1||($(cell).text()).indexOf("删除") != -1){
-				continue;
-			}else{
-				$(cell).attr("title",cell.innerHTML);
-			}
-			}
-			}
-		 };
+    }];	
+	 
 	//实例化table
-	myDataTable = $('#camera-datatable').DataTable(dtconfig);	
+	myDataTable = $('#camera-datatable').DataTable(dtconfig);
+	
+	myDataTable.on( 'draw', function () {
+	    //alert( 'Redraw occurred at: '+new Date().getTime() );
+		addTitle();
+	});
 	
 }
 //新增
@@ -72,8 +61,7 @@ function add(){
 }
 //表单提交
 function submitform(){	
-	ajaxsubmit();
-	
+	ajaxsubmit();	
 }
 
 function ajaxsubmit(){	
@@ -282,6 +270,24 @@ function showOrHide(val,checked){
 			 $("#TOTAL").attr("required","required");
 		}else{
 			 $("#TOTAL").removeAttr("required");
+		}
+	}
+}
+
+
+//给td增加title
+function addTitle(){
+	var tab = document.getElementById("camera-datatable"); // 找到这个表格
+	var rows = tab.rows; // 取得这个table下的所有行
+	for (var i = 0; i < rows.length; i++) {
+		for (var j = 0; j < rows[i].cells.length; j++) {
+			var cell = rows[i].cells[j];
+			if (($(cell).text()).indexOf("编辑") != -1
+					|| ($(cell).text()).indexOf("删除") != -1) {
+				continue;
+			} else {
+				$(cell).attr("title", cell.innerHTML);
+			}
 		}
 	}
 }
