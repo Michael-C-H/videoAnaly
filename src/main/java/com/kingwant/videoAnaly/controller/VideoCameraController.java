@@ -35,17 +35,11 @@ public class VideoCameraController {
     @ResponseBody
     public BootstrapPageResult<VideoCamera> test(HttpServletRequest request,BootstrapPageEntity<VideoCamera> page){
     	
-    	
-    /*	Page<VideoCamera> page=new Page<>();
-    	page.setSize(length);
-    	int current=start==0?1:(start/length+1);
-    	page.setCurrent(current);*/
-    	
-    	
-    	//搜索
+    	//获取搜索字段值
     	String name=RequestHelper.toStr(request, "name",null);
     	String code=RequestHelper.toStr(request, "code",null);
     	Wrapper<VideoCamera> wrapper=new EntityWrapper<VideoCamera>();
+    	//判断搜索值是否为空。拼接搜索条件
     	if (!KwHelper.isNullOrEmpty(name)&&!KwHelper.isNullOrEmpty(code)) {			
     		wrapper.like("name", name).and().like("code", code);
 		}
@@ -55,6 +49,7 @@ public class VideoCameraController {
     	if (KwHelper.isNullOrEmpty(name)&&!KwHelper.isNullOrEmpty(code)) {			
     		wrapper.like("code", code);
     	}
+    	//执行查询，返回list
     	Page<VideoCamera> list=vcm.selectPage(page.getPageObj(),wrapper);
     	Page<VideoCamera> updatelist = vcm.updateAnalyType(list);
         return new BootstrapPageResult<VideoCamera>(updatelist,page.getDraw());
@@ -62,6 +57,7 @@ public class VideoCameraController {
 	
 	@RequestMapping("/updateorinsertvc")
 	public BootstrapPageResult<String> updatevc(HttpServletRequest request){
+		//获取前端编辑框或者新增框传的值
 		String id = request.getParameter("formid");
 		String CODE = request.getParameter("CODE");
 		String NAME = request.getParameter("NAME");
@@ -81,7 +77,7 @@ public class VideoCameraController {
 			return new BootstrapPageResult<String>("数据源地址为空",false);
 		}
 		
-		//分析拼接类型数据ABC
+		//分析拼接----（分析类型）数据，数据库存储A，B，C形式
 		if(ComUtil.isEmpty(anltsisType)){
 			sb = null;
 		}else{
@@ -103,7 +99,7 @@ public class VideoCameraController {
 			}
 			sb = sb.deleteCharAt(sb.length()-1);
 		}
-		
+		//当新增的时候，页面传入后台id为空
 		if(ComUtil.isEmpty(id)){
 			VideoCamera selectsource = vcm.selectsource(SOURCE);
 			if(!ComUtil.isEmpty(selectsource)){
@@ -120,6 +116,8 @@ public class VideoCameraController {
 				return new BootstrapPageResult<String>("新增失败"+e.getMessage(),false);
 			}
 		}else{
+			//当编辑的时候，页面传入后台，当前编辑数据的Id
+			//判断数据源是否重复
 			VideoCamera selectsource = vcm.selectuptsource(SOURCE,id);
 			if(!ComUtil.isEmpty(selectsource)){
 				return new BootstrapPageResult<String>("数据源不能重复",false);
@@ -128,6 +126,7 @@ public class VideoCameraController {
 			if(Objects.equal(null, videoCamera)){
 				return new BootstrapPageResult<String>("修改的该条数据已经不存在",false);
 			}
+			//将页面传入的值设入VideoCamera对象
 			videoCamera = setvalue(CODE, NAME, SOURCE, ONLINE_NUM, TOTAL, sb, videoCamera, id,anltsisType,false);
 			try{
 				vcm.updateById(videoCamera);
@@ -139,7 +138,7 @@ public class VideoCameraController {
 		}
 		
 	}
-	//修改或者新增的时候
+	//修改或者新增的时候,往VideoCamera中设值
 	private VideoCamera setvalue(String CODE, String NAME, String SOURCE, String ONLINE_NUM, String TOTAL, StringBuilder sb,
 			VideoCamera videoCamera, String uuid,String[] anltsisType,Boolean flag) {
 		videoCamera.setId(uuid);
@@ -151,13 +150,15 @@ public class VideoCameraController {
 		}else{
 			videoCamera.setAnltsisType(sb.toString());
 		}
+		//这里onlinenum和total先设为空字符串。因为当页面没选择分析类型，
+		//依然会传入onlinenum和total值
 		videoCamera.setOnlineNum("");
 		videoCamera.setTotal("");
 		if(ComUtil.isEmpty(anltsisType)){
 			
 			return videoCamera;
 		}else{
-			
+			//判断分析类型是否选中
 			List<String> list=Arrays.asList(anltsisType);
 			if(list.contains("B")){
 				videoCamera.setOnlineNum(ONLINE_NUM);
@@ -169,6 +170,9 @@ public class VideoCameraController {
 		}
 		return videoCamera;
 	}
+	/*
+	 * 根据id删除一条数据
+	 */
 	@RequestMapping("/deletevc")
 	public BootstrapPageResult<String> deletevc(String id){
 		VideoCamera videoCamera = vcm.selectById(id);
